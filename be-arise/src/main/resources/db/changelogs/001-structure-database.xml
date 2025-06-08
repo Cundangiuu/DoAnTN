@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <changeSet id="001" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/001-create-tables.sql" relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="002" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/002-update-column-student.sql" relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="003" author="JohnPham" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/003-add-course-level.sql" relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="004" author="JohnPham" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/004-drop-lesson-code.sql" relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="005" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/005-add-note-to-students.sql" relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="006" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/006-add-columns-to-class-schedules.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="007" author="JohnPham" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/007-key-pair-tables.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="008" author="JohnPham" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/008-staff-refresh-token.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="009" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/009-remove-null-constraint-students.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="010" author="johnpham" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/010-rename-table-absence.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="011" author="johnpham" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/011-add-rating-homework.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="012" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/012-add-avatar-to-staff.sql" relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="013" author="McPepperoni" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/013-update-class-table.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="014" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/014-add-unique-email-staff.sql" relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="015" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/015-formula-tables.sql" relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="016" author="JohnPham" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/016-add-invoice-fields.sql" relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="017" author="McPepperoni" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/017-class-day-update.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="018" author="McPepperoni" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/018-add-invoice-discount.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="019" author="McPepperoni" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/019-class-day-report-update.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="020" author="JohnPham" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/020-lesson-drop-number.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="021" author="McPepperoni" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/021-remove-unique-key-class-day.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="022" author="JohnPham" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/022-add-class-key-to-enrollment.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="023" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/023-delete-sum-column.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="024" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/024-add-amount-discount.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="025" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/025-add-criteria-table.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="026" author="KaitoKido" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/026-add-sum-grade-tables.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+  <changeSet id="027" author="McPepperoni" runOnChange="true" runInTransaction="true" labels="DDL">
+    <sqlFile path="../scripts/ddl/027-add-ref-to-schedule-classday.sql"
+      relativeToChangelogFile="true" />
+  </changeSet>
+</databaseChangeLog>

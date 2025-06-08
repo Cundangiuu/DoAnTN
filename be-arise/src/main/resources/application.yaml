@@ -1,0 +1,43 @@
+server:
+  google:
+    user: ${GOOGLE_IMPERSONATED_USER:@gmail.com}
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: ${SERVER_CONTEXT_PATH:/codezx-triviet}
+
+validate:
+  email: ${VALIDATE_EMAIL:gmail.com}
+
+header:
+  security:
+    key-token: x-access-token
+    token-default: ${DEAFAULT_TOKEN:kdjfa123KD@a}
+
+spring:
+  application:
+    name: ${APPLICATION_NAME:triviet}
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_DBNAME:tve}}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:1}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  liquibase:
+    change-log: classpath:db/master-changelog.xml
+
+file:
+  storage:
+    student:
+      avatar: uploads/students/avatars
+    staff:
+      avatar: uploads/staffs/avatars
+  google:
+    client-secret: ${GOOGLE_CLIENT_PATH:client_secret.json}
+    service-user-token: ${GOOGLE_SERVICE_USER_TOKEN:service_user.json}

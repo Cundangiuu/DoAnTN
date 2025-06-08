@@ -1,0 +1,3 @@
+ALTER TABLE student
+ALTER COLUMN email_address
+DROP NOT NULL;

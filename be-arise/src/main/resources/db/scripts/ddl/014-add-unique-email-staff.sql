@@ -1,0 +1,1 @@
+ALTER TABLE staff ADD CONSTRAINT staff_email_uniq UNIQUE (email_address);

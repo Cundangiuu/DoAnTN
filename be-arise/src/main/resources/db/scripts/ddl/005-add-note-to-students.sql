@@ -1,0 +1,2 @@
+ALTER TABLE student
+ADD COLUMN note VARCHAR(1024);

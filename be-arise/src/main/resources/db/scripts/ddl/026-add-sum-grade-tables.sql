@@ -1,0 +1,2 @@
+ALTER TABLE grade
+ADD COLUMN sum FLOAT;

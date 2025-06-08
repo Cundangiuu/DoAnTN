@@ -1,0 +1,2 @@
+ALTER TABLE course
+ADD COLUMN course_level VARCHAR(255);

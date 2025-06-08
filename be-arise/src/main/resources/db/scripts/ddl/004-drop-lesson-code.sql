@@ -1,0 +1,2 @@
+ALTER TABLE lesson
+DROP COLUMN code;
