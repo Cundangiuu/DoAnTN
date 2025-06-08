@@ -7,7 +7,7 @@ import { StaffDTO } from "../staff";
 
 export type ClassDayDTO = {
   id: number;
-  classTvms: string;
+  classArise: string;
   className: string;
   classDate?: Date;
   schedule?: ScheduleDTO;

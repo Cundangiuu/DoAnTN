@@ -13,7 +13,7 @@ FROM eclipse-temurin:23.0.2_7-jre-alpine-3.21
 
 WORKDIR /app
 
-ENV APP_NAME=triviet-0.0.1-SNAPSHOT.jar
+ENV APP_NAME=arise-0.0.1-SNAPSHOT.jar
 ENV TZ=Asia/Saigon
 
 COPY --from=build /app/target/${APP_NAME} .

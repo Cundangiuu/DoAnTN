@@ -3,7 +3,7 @@ server:
     user: ${GOOGLE_IMPERSONATED_USER:@gmail.com}
   port: ${SERVER_PORT:8080}
   servlet:
-    context-path: ${SERVER_CONTEXT_PATH:/codezx-triviet}
+    context-path: ${SERVER_CONTEXT_PATH:/codezx-arise}
 
 validate:
   email: ${VALIDATE_EMAIL:gmail.com}
@@ -15,9 +15,9 @@ header:
 
 spring:
   application:
-    name: ${APPLICATION_NAME:triviet}
+    name: ${APPLICATION_NAME:arise}
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_DBNAME:tve}}
+    url: ${DATABASE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_DBNAME:arise}}
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:1}
     driver-class-name: org.postgresql.Driver

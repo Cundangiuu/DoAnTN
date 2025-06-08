@@ -1176,7 +1176,7 @@ const GradesTable: React.FC<Props> = ({ classData, classCode }) => {
                   setEditData({
                     id: data.id,
                     studentId: data.student.id,
-                    classId: data.classTvms.id,
+                    classId: data.classArise.id,
                     typeOfTest: data.testType.type,
                     comment: data.comment,
                     score: data.score,

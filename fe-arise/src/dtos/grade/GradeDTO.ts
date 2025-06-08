@@ -8,7 +8,7 @@ import { TestTypeDTO } from "./TestTypeDTO";
 export type GradeDTO = {
   id: number;
   student: StudentDTO;
-  classTvms: ClassDTO;
+  classArise: ClassDTO;
   testType: TestTypeDTO;
   comment: string;
   sum: number;

@@ -109,7 +109,7 @@ const ClassTable: React.FC = () => {
             >
               {cellValue as string}
             </Link>
-            <ClassStatusLabel classTvms={data} />
+            <ClassStatusLabel classArise={data} />
           </div>
         );
       case "name":

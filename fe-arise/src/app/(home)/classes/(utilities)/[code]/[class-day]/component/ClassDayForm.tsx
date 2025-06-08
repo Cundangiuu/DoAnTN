@@ -32,7 +32,7 @@ interface Props {
   defaultClassDay?: {
     id: number;
     className: string;
-    classTvms: string;
+    classArise: string;
     comment: string;
     homeWork: string;
     rating: number;
@@ -91,7 +91,7 @@ export default function ClassDayForm({
         }
       }
       toast.success("Class day and attendance updated successfully.");
-      router.push(`/classes/${response.data.classTvms}/${response.data.id}`);
+      router.push(`/classes/${response.data.classArise}/${response.data.id}`);
     } catch (error) {
       toast.error(
         "Failed to save updates. Please try again." + (error as Error).message

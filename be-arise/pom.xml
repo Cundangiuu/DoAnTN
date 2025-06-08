@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>vn.codezx</groupId>
-	<artifactId>triviet</artifactId>
+	<artifactId>arise</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>triviet</name>
-	<description>Tri Viet IMS project</description>
+	<name>arise</name>
+	<description>Arise IMS project</description>
 	<url />
 	<licenses>
 		<license />

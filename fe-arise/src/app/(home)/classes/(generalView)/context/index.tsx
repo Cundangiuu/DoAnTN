@@ -42,8 +42,8 @@ export default function GeneralClassContextProvider({
       return;
     }
 
-    const formattedData = exportData.map((classTvms, index) => {
-      const nextClassDayIndex = classTvms.classDays.findIndex(
+    const formattedData = exportData.map((classArise, index) => {
+      const nextClassDayIndex = classArise.classDays.findIndex(
         (c) => {
           if (!c.classDate) return;
 
@@ -61,16 +61,16 @@ export default function GeneralClassContextProvider({
         }
       );
 
-      const nextClassDay = classTvms.classDays[nextClassDayIndex];
+      const nextClassDay = classArise.classDays[nextClassDayIndex];
 
       return {
         No: index + 1,
-        Code: classTvms.code,
-        "Class Name": classTvms.name,
-        "Course Name": classTvms.course?.name ?? "N/A",
-        Schedules: `${classTvms.schedules.map((s) => s.code).join(", ")}`,
-        "Academic Staff": classTvms.staff
-          ? `${classTvms.staff?.firstName} ${classTvms.staff?.lastName}`
+        Code: classArise.code,
+        "Class Name": classArise.name,
+        "Course Name": classArise.course?.name ?? "N/A",
+        Schedules: `${classArise.schedules.map((s) => s.code).join(", ")}`,
+        "Academic Staff": classArise.staff
+          ? `${classArise.staff?.firstName} ${classArise.staff?.lastName}`
           : "N/A",
         "Next class lesson": nextClassDay?.lesson
           ? nextClassDay.lesson.description
@@ -78,11 +78,11 @@ export default function GeneralClassContextProvider({
         "Next class teacher": nextClassDay?.teacher
           ? `${nextClassDay.teacher.firstName} ${nextClassDay.teacher.lastName}`
           : "N/A",
-        "Lesson count": `${nextClassDayIndex === -1 ? 0 : nextClassDayIndex}/${classTvms.classDays.length
+        "Lesson count": `${nextClassDayIndex === -1 ? 0 : nextClassDayIndex}/${classArise.classDays.length
           }`,
-        "Student count": classTvms.students.length,
-        "Start date": classTvms.startDate
-          ? DateToStringWithoutTime(new Date(classTvms.startDate))
+        "Student count": classArise.students.length,
+        "Start date": classArise.startDate
+          ? DateToStringWithoutTime(new Date(classArise.startDate))
           : "N/A",
         "Next Location": nextClassDay?.location
           ? `${nextClassDay.location.branch} - ${nextClassDay.location.room}`

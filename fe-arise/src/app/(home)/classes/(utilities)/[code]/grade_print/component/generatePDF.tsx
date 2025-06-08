@@ -79,9 +79,9 @@ export const generatePDF = async (grade: GradeDTO) => {
 
   // Use original filename format
   pdf.save(
-    grade.classTvms.name +
+    grade.classArise.name +
       "_" +
-      grade.classTvms.code +
+      grade.classArise.code +
       "_" +
       grade.testType.type +
       ".pdf"

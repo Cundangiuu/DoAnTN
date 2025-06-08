@@ -8,7 +8,7 @@ import { FaCheck } from "react-icons/fa";
 
 const ReportContent = ({ grade }: { grade: GradeDTO }) => {
   const testType = grade.testType.type;
-  const formula = grade.classTvms.course.formula;
+  const formula = grade.classArise.course.formula;
   const isReadingWriting =
     testType == TypeOfTest.MIDTERM
       ? formula.midtermReadingMaxScore == 0 ||
@@ -52,7 +52,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
       <div className="text-center mt-4 mb-4">
         <h1 className="text-xl font-bold">PHIẾU THÔNG BÁO KẾT QUẢ</h1>
         <h2 className="text-lg font-bold">
-          CLASS REPORT - {grade.classTvms.course.name.toUpperCase()} {testType} TEST RESULT
+          CLASS REPORT - {grade.classArise.course.name.toUpperCase()} {testType} TEST RESULT
         </h2>
         <div className="text-sm mt-1">
           Ngày: {DateToStringWithoutTime(new Date())}
@@ -70,7 +70,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
         <div className="flex">
           <div className="w-24 font-semibold text-xs">Lớp:</div>
           <div className="text-xs">
-            {grade.classTvms.name} - {grade.classTvms.code}
+            {grade.classArise.name} - {grade.classArise.code}
           </div>
         </div>
       </div>
@@ -138,7 +138,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                       </th>
                     </>
                   )}
-                  {!containsEnglishTest(grade.classTvms.course.name) && (
+                  {!containsEnglishTest(grade.classArise.course.name) && (
                     <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                       <p className="mb-3">
                         Tổng điểm{" "}
@@ -157,7 +157,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                     </th>
                   )}
 
-                  {containsEnglishTest(grade.classTvms.course.name) ? (
+                  {containsEnglishTest(grade.classArise.course.name) ? (
                     <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                       <p className="mb-3">
                         Điểm{" "}
@@ -281,7 +281,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                       </td>
                     </>
                   )}
-                  {!containsEnglishTest(grade.classTvms.course.name) && (
+                  {!containsEnglishTest(grade.classArise.course.name) && (
                     <td className="border-solid border border-gray-400 text-center px-0.5 py-0">
                       <p className="mb-3">
                         {grade.skills.reduce(
