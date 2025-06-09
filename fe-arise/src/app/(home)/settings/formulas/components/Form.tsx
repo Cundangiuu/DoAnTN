@@ -51,15 +51,15 @@ const Form: React.FC<Props> = ({ formula }) => {
         ? FormulaService.updateFormula(formulaRequest, formula.id)
         : FormulaService.createFormula(formulaRequest));
       if (!response.data) {
-        toast.error(`Failed to ${isNew ? "create" : "update"} formula`);
+        toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} công thức`);
       } else {
-        toast.success(`${isNew ? "Created" : "Updated"} formula successfully!`);
+        toast.success(`${isNew ? "Đã tạo" : "Đã cập nhật"} công thức thành công!`);
 
         router.push(`/settings/formulas/${response.data.id}`);
       }
     } catch (error) {
-      console.error("Error submitting the form: ", error);
-      toast.error(`Failed to ${isNew ? "create" : "update"} formulas`);
+      console.error("Lỗi khi gửi biểu mẫu: ", error);
+      toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} công thức`);
     } finally {
       setFormSubmitting(false);
     }
@@ -79,27 +79,27 @@ const Form: React.FC<Props> = ({ formula }) => {
           <DeleteActionButton
             id={formula.id}
             action={FormulaService.deleteFormula}
-            objectName={"Formula"}
+            objectName={"Công thức"}
             afterDelete={() => router.push("/settings/formulas")}
           />
         )}
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        {/* Name */}
+        {/* Tên */}
         <TextInput
           name="name"
           control={control}
           required
           isReadOnly={isReadOnly}
-          label="Name"
-          placeholder="Enter name"
+          label="Tên"
+          placeholder="Nhập tên"
         />
 
         <SelectInputWithSearch
           control={control}
           name="courseIds"
-          label="Applicable Courses"
+          label="Khóa học áp dụng"
           defaultSelectedKeys={formula?.courseIds.map((id) => id.toString())}
           options={
             courses?.map((course) => ({
@@ -108,37 +108,37 @@ const Form: React.FC<Props> = ({ formula }) => {
             })) || []
           }
           isDisable={isReadOnly}
-          placeholder="Select courses"
+          placeholder="Chọn khóa học"
         />
       </div>
 
-      <h2 className="mt-4 text-xl text-zinc-700">Midterm Grade Formula</h2>
+      <h2 className="mt-4 text-xl text-zinc-700">Công thức điểm giữa kỳ</h2>
       <div className="grid grid-cols-4 gap-4 mt-2">
         <TextInput
           required
           name="midtermListeningMaxScore"
           control={control}
           isReadOnly={isReadOnly}
-          label="Listening Max Score"
+          label="Điểm tối đa Nghe"
+          placeholder="Điểm tối đa Nghe"
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
-          placeholder="Listening Max Score"
         />
         <TextInput
           required
           name="midtermReadingMaxScore"
           control={control}
-          label="Reading Max Score"
-          placeholder="Reading Max Score"
+          label="Điểm tối đa Đọc"
+          placeholder="Điểm tối đa Đọc"
           isReadOnly={isReadOnly}
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -146,13 +146,13 @@ const Form: React.FC<Props> = ({ formula }) => {
           required
           name="midtermWritingMaxScore"
           control={control}
-          label="Writing Max Score"
-          placeholder="Writing Max Score"
+          label="Điểm tối đa Viết"
+          placeholder="Điểm tối đa Viết"
           isReadOnly={isReadOnly}
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -160,13 +160,13 @@ const Form: React.FC<Props> = ({ formula }) => {
           required
           name="midtermSpeakingMaxScore"
           control={control}
-          label="Speaking Max Score"
-          placeholder="Speaking Max Score"
+          label="Điểm tối đa Nói"
+          placeholder="Điểm tối đa Nói"
           isReadOnly={isReadOnly}
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -174,8 +174,8 @@ const Form: React.FC<Props> = ({ formula }) => {
           required
           control={control}
           name="midtermPercentageFormula"
-          label="Percentage Formula"
-          placeholder="Percentage Formula"
+          label="Công thức tỷ lệ phần trăm"
+          placeholder="Công thức tỷ lệ phần trăm"
           isReadOnly={isReadOnly}
         />
         <div className="col-span-2">
@@ -183,26 +183,26 @@ const Form: React.FC<Props> = ({ formula }) => {
             required
             control={control}
             name="midtermClassificationFormula"
-            label="Classification Formula"
-            placeholder="Classification Formula"
+            label="Công thức phân loại"
+            placeholder="Công thức phân loại"
             isReadOnly={isReadOnly}
           />
         </div>
       </div>
 
-      <h2 className="mt-4 text-xl text-zinc-700">Final Grade Formula</h2>
+      <h2 className="mt-4 text-xl text-zinc-700">Công thức điểm cuối kỳ</h2>
       <div className="grid grid-cols-4 gap-4 mt-2">
         <TextInput
           required
           name="finalListeningMaxScore"
           control={control}
           isReadOnly={isReadOnly}
-          label="Listening Max Score"
-          placeholder="Listening Max Score"
+          label="Điểm tối đa Nghe"
+          placeholder="Điểm tối đa Nghe"
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -210,13 +210,13 @@ const Form: React.FC<Props> = ({ formula }) => {
           required
           name="finalReadingMaxScore"
           control={control}
-          label="Reading Max Score"
-          placeholder="Reading Max Score"
+          label="Điểm tối đa Đọc"
+          placeholder="Điểm tối đa Đọc"
           isReadOnly={isReadOnly}
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -224,13 +224,13 @@ const Form: React.FC<Props> = ({ formula }) => {
           required
           name="finalWritingMaxScore"
           control={control}
-          label="Writing Max Score"
-          placeholder="Writing Max Score"
+          label="Điểm tối đa Viết"
+          placeholder="Điểm tối đa Viết"
           isReadOnly={isReadOnly}
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -238,13 +238,13 @@ const Form: React.FC<Props> = ({ formula }) => {
           required
           name="finalSpeakingMaxScore"
           control={control}
-          label="Speaking Max Score"
-          placeholder="Speaking Max Score"
+          label="Điểm tối đa Nói"
+          placeholder="Điểm tối đa Nói"
           isReadOnly={isReadOnly}
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -252,8 +252,8 @@ const Form: React.FC<Props> = ({ formula }) => {
           required
           control={control}
           name="finalPercentageFormula"
-          label="Percentage Formula"
-          placeholder="Percentage Formula"
+          label="Công thức tỷ lệ phần trăm"
+          placeholder="Công thức tỷ lệ phần trăm"
           isReadOnly={isReadOnly}
         />
         <div className="col-span-2">
@@ -261,26 +261,26 @@ const Form: React.FC<Props> = ({ formula }) => {
             required
             control={control}
             name="finalClassificationFormula"
-            label="Classification Formula"
-            placeholder="Classification Formula"
+            label="Công thức phân loại"
+            placeholder="Công thức phân loại"
             isReadOnly={isReadOnly}
           />
         </div>
       </div>
 
-      <h2 className="mt-4 text-xl text-zinc-700">Course Result Formula</h2>
+      <h2 className="mt-4 text-xl text-zinc-700">Công thức kết quả khóa học</h2>
       <div className="grid grid-cols-4 gap-4 mt-2">
         <TextInput
           required
           control={control}
           name="midtermGradeWeight"
-          label="Midterm Grade Weight"
-          placeholder="Midterm Grade Weight"
+          label="Trọng số điểm giữa kỳ"
+          placeholder="Trọng số điểm giữa kỳ"
           isReadOnly={isReadOnly}
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -288,13 +288,13 @@ const Form: React.FC<Props> = ({ formula }) => {
           required
           control={control}
           name="finalGradeWeight"
-          label="Final Grade Weight"
-          placeholder="Final Grade Weight"
+          label="Trọng số điểm cuối kỳ"
+          placeholder="Trọng số điểm cuối kỳ"
           isReadOnly={isReadOnly}
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -302,13 +302,13 @@ const Form: React.FC<Props> = ({ formula }) => {
           required
           control={control}
           name="bonusGradeWeight"
-          label="Bonus Grade Weight"
-          placeholder="Bonus Grade Weight"
+          label="Trọng số điểm thưởng"
+          placeholder="Trọng số điểm thưởng"
           isReadOnly={isReadOnly}
           rules={{
             pattern: {
               value: /^\d+(\.\d+)?$/,
-              message: "Please enter a valid integer or float",
+              message: "Vui lòng nhập số nguyên hoặc số thập phân hợp lệ",
             },
           }}
         />
@@ -317,8 +317,8 @@ const Form: React.FC<Props> = ({ formula }) => {
             required
             control={control}
             name="classificationFormula"
-            label="Classification Formula"
-            placeholder="Classification Formula"
+            label="Công thức phân loại"
+            placeholder="Công thức phân loại"
             isReadOnly={isReadOnly}
           />
         </div>

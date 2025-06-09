@@ -55,12 +55,13 @@ export default function OutlineTable({
   const [lessons, setLessons] = useState<Array<LessonRequest>>([]);
   const [loading, setLoading] = useState(false);
 
-  const columns = [
-    { name: "No.", key: "index", align: "start" },
-    { name: "Description", key: "description", align: "left" },
-    { name: "Lesson Type", key: "lessonType" },
-    { name: "Action", key: "action" },
+    const columns = [
+    { name: "STT", key: "index", align: "start" },            // STT = Số thứ tự
+    { name: "Mô tả", key: "description", align: "left" },     // Mô tả nội dung bài học
+    { name: "Loại bài học", key: "lessonType" },              // Kiểu bài học (Lý thuyết / Thực hành / Trắc nghiệm, v.v.)
+    { name: "Thao tác", key: "action" },                      // Nút hành động (sửa, xóa, v.v.)
   ];
+
 
   const deleteAction = async (id: number) => {
     setLoading(true);

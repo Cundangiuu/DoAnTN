@@ -47,7 +47,7 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer> {
                    cd.home_work AS home_work,
                    s.nickname AS nickName
             FROM class_day cd
-            JOIN class_tvms c ON cd.class_id = c.id
+            JOIN class_arise c ON cd.class_id = c.id
             JOIN lesson l ON cd.lesson_id = l.id
             JOIN class_student cs ON cs.class_id = c.id 
             JOIN student s ON s.id = cs.student_id

@@ -1,4 +1,4 @@
-ALTER TABLE class_tvms
+ALTER TABLE class_arise
 DROP COLUMN room,
 DROP COLUMN branch,
 DROP COLUMN class_schedule_id,
@@ -18,8 +18,8 @@ create TABLE
         schedule_id BIGINT NOT NULL
     );
 
-ALTER TABLE class_student ADD CONSTRAINT fk_class_student_class FOREIGN KEY (class_id) REFERENCES class_tvms (id),
+ALTER TABLE class_student ADD CONSTRAINT fk_class_student_class FOREIGN KEY (class_id) REFERENCES class_arise (id),
 ADD CONSTRAINT fk_class_student_student FOREIGN KEY (student_id) REFERENCES student (id);
 
-ALTER TABLE class_class_schedule ADD CONSTRAINT fk_class_schedule_class FOREIGN KEY (class_id) REFERENCES class_tvms (id),
+ALTER TABLE class_class_schedule ADD CONSTRAINT fk_class_schedule_class FOREIGN KEY (class_id) REFERENCES class_arise (id),
 ADD CONSTRAINT fk_class_schedule_schedule FOREIGN KEY (schedule_id) REFERENCES class_schedule (id);

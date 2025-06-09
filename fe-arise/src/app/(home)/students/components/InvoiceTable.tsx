@@ -21,15 +21,15 @@ const InvoiceTable = ({ studentCode }: Props) => {
   const [loading, setLoading] = useState(true);
   const { isAdmin, isAccountant } = useMeaningfulContext(SessionContext);
 
-  const columns = [
-    { name: "Enrolled Class", key: "classCode" },
-    { name: "Tuition Owed", key: "tuitionOwed" },
-    { name: "Amount Paid", key: "amount" },
-    { name: "Payment Type", key: "paymentType" },
-    { name: "Description", key: "description" },
-    { name: "Invoice Status", key: "invoiceStatus" },
-    ...(isAdmin || isAccountant ? [{ name: "Action", key: "action" }] : []),
-  ];
+ const columns = [
+  { name: "Lớp đã ghi danh", key: "classCode" },
+  { name: "Học phí còn nợ", key: "tuitionOwed" },
+  { name: "Số tiền đã trả", key: "amount" },
+  { name: "Hình thức thanh toán", key: "paymentType" },
+  { name: "Mô tả", key: "description" },
+  { name: "Trạng thái hóa đơn", key: "invoiceStatus" },
+  ...(isAdmin || isAccountant ? [{ name: "Hành động", key: "action" }] : []),
+];
 
   useEffect(() => {
     const fetchInvoices = async () => {

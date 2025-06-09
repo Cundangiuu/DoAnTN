@@ -7,8 +7,8 @@ import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tri Viet - IMS",
-  description: "Tri Viet Website",
+  title: "Arise - Education",
+  description: "Arise Education Website",
   other: {
     "zalo-platform-site-verification": "MDguAuhSBt88yhnLtu5dVbpntsAmZmWzC3C",
   },

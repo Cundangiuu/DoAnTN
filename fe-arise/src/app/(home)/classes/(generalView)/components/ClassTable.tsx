@@ -37,14 +37,14 @@ const ClassTable: React.FC = () => {
   const data = classes;
 
   const columns = [
-    { name: "Code", key: "code", align: "start" },
-    { name: "Name", key: "name" },
-    { name: "Schedules", key: "schedules" },
-    { name: "Academic Staff", key: "staff" },
-    { name: "Class info", key: "classInfo" },
-    { name: "Start Date", key: "startDate" },
-    { name: "Location", key: "location" },
-    { name: "Action", key: "Action" },
+    { name: "Mã lớp", key: "code", align: "start" },
+    { name: "Tên lớp", key: "name" },
+    { name: "Lịch học", key: "schedules" },
+    { name: "Giảng viên", key: "staff" },
+    { name: "Thông tin lớp", key: "classInfo" },
+    { name: "Ngày bắt đầu", key: "startDate" },
+    { name: "Địa điểm", key: "location" },
+    { name: "Hành động", key: "Action" },
   ];
   const handleReportToggle = (reportType: string) => {
     setActiveReport(reportType);
@@ -55,11 +55,11 @@ const ClassTable: React.FC = () => {
     setLoading(true);
     const response = await deleteClass(id);
     if (response.status !== 200) {
-      toast.error("Failed to delete class");
+      toast.error("Không thể xóa lớp học");
       return response;
     }
 
-    toast.success("Class deleted");
+    toast.success("Đã xóa lớp học");
     if (!classes) {
       return response;
     }
@@ -105,7 +105,7 @@ const ClassTable: React.FC = () => {
           <div className="flex items-center flex-col gap-2">
             <Link
               href={`/classes/${cellValue as string}`}
-              className="text-blue-600 underline"
+              className="text-[#2255a6] underline hover:text-[#2255a6] font-semibold"
             >
               {cellValue as string}
             </Link>
@@ -126,7 +126,7 @@ const ClassTable: React.FC = () => {
             {(cellValue as ScheduleDTO[]).map((s) => (
               <p
                 key={s.id}
-                className="bg-orange-500 text-white px-2 rounded-full"
+                className="bg-orange-500 text-white px-2 rounded-full text-xs"
               >
                 {s.code}
               </p>
@@ -134,16 +134,16 @@ const ClassTable: React.FC = () => {
           </div>
         );
       case "classInfo": {
-        const lesson = cd?.lesson.description ?? "N/A";
+        const lesson = cd?.lesson.description ?? "Không có";
         const teacher = cd?.teacher
           ? `${cd.teacher.firstName} ${cd.teacher.lastName}`
-          : "N/A";
+          : "Không có";
 
         return (
           <div className="text-left flex flex-col gap-2">
             <p className="flex items-center gap-2">
-              Next lesson:{" "}
-              {lesson === "N/A" ? (
+              Bài học tiếp theo:{" "}
+              {lesson === "Không có" ? (
                 lesson
               ) : (
                 <Tooltip
@@ -158,29 +158,29 @@ const ClassTable: React.FC = () => {
                 >
                   <Link
                     href={`/classes/${data.code}?view=schedules#lesson-${cd?.lesson.id}`}
-                    className="px-2 flex justify-center gap-2 items-center rounded-full cursor-pointer bg-slate-500 hover:bg-slate-600 text-white"
+                    className="px-2 flex justify-center gap-2 items-center rounded-full cursor-pointer bg-slate-500 hover:bg-slate-600 text-white text-xs"
                   >
-                    <span className="whitespace-nowrap">Hover to view</span>{" "}
+                    <span className="whitespace-nowrap">Xem mô tả</span>
                     <FaLink size={10} />
                   </Link>
                 </Tooltip>
               )}
             </p>
             <p>
-              Next class date: <span className="font-bold">
-                {cd?.classDate ? `${DateToStringWithoutTime(cd?.classDate)} \n` : "N/A \n"}
+              Ngày học tiếp theo: <span className="font-bold">
+                {cd?.classDate ? `${DateToStringWithoutTime(cd?.classDate)} \n` : "Không có \n"}
               </span>
               <br />
             </p>
             <p>
-              Teacher: <span className="font-bold">{teacher}</span>
+              Giảng viên: <span className="font-bold">{teacher}</span>
             </p>
             <p>
-              Student count:{" "}
+              Số học sinh:{" "}
               <span className="font-bold">{data.students.length}</span>
             </p>
             <p>
-              Lesson count:{" "}
+              Số bài học:{" "}
               <span className="font-bold">
                 {
                   cds.filter(
@@ -200,7 +200,7 @@ const ClassTable: React.FC = () => {
         const location = cd?.location;
 
         return (
-          <p>{location ? `${location.branch} - ${location.room}` : "N/A"}</p>
+          <p>{location ? `${location.branch} - ${location.room}` : "Không có"}</p>
         );
       }
       case "staff":
@@ -208,7 +208,7 @@ const ClassTable: React.FC = () => {
 
         return (
           <p className={`px-2 py-1 rounded-full`}>
-            {staff ? `${staff.firstName} ${staff.lastName}` : "N/A"}
+            {staff ? `${staff.firstName} ${staff.lastName}` : "Không có"}
           </p>
         );
       case "Action":
@@ -220,6 +220,7 @@ const ClassTable: React.FC = () => {
                 isIconOnly
                 href={`/classes/${data.code}`}
                 disabled={loading}
+                className="text-[#2255a6]"
               >
                 <FaEye />
               </Button>
@@ -227,10 +228,11 @@ const ClassTable: React.FC = () => {
                 isIconOnly
                 href={`/classes/${data.code}/edit`}
                 disabled={loading}
+                // className="text-[#2255a6]" // Thêm màu cho nút Edit
               />
               <DeleteActionButton
                 action={deleteAction}
-                objectName="Class"
+                objectName="Lớp học"
                 afterDelete={() => {
                   router.refresh();
                 }}
@@ -256,23 +258,23 @@ const ClassTable: React.FC = () => {
 
       if (value === "MIDTERM") {
         return (
-          <p className="px-2 py-1 bg-orange-600 w-fit mx-auto  font-bold text-white rounded-full">
-            Mid term
+          <p className="px-2 py-1 bg-orange-600 w-fit mx-auto  font-bold text-white rounded-full text-xs">
+            Giữa kỳ
           </p>
         );
       }
 
       if (value === "FINAL") {
         return (
-          <p className="px-2 py-1 bg-primary-600 w-fit mx-auto  font-bold text-white rounded-full">
-            Final term
+          <p className="px-2 py-1 bg-[#2255a6] w-fit mx-auto font-bold text-white rounded-full text-xs">
+            Cuối kỳ
           </p>
         );
       }
 
       return (
-        <p className="px-2 py-1 bg-slate-600 w-fit mx-auto  font-bold text-white rounded-full">
-          Normal day
+        <p className="px-2 py-1 bg-gray-600 w-fit mx-auto font-bold text-white rounded-full text-xs">
+          Ngày thường
         </p>
       );
     }
@@ -281,38 +283,38 @@ const ClassTable: React.FC = () => {
   };
 
   const columnsReportTestDay = [
-    { name: "No.", key: "id" },
-    { name: "Name", key: "Name" },
-    { name: "Test Date", key: "Test Date" },
-    { name: "Test Type", key: "Test Type" },
-    { name: "Schedule", key: "Schedule" },
-    { name: "Location", key: "Location" },
+    { name: "STT", key: "id" },
+    { name: "Tên", key: "Name" },
+    { name: "Ngày kiểm tra", key: "Test Date" },
+    { name: "Loại kiểm tra", key: "Test Type" },
+    { name: "Lịch học", key: "Schedule" },
+    { name: "Địa điểm", key: "Location" },
   ];
 
   const columnsReportAbsence = [
-    { name: "No.", key: "id" },
-    { name: "Enrolled Class", key: "Enrolled Class" },
-    { name: "Absent Date", key: "Absent Date" },
-    { name: "Student Name", key: "Student Name" },
-    { name: "Nick Name", key: "Nick Name" },
-    { name: "Lesson Description", key: "Lesson Description" },
-    { name: "Comment", key: "Comment" },
-    { name: "Homework", key: "Homework" },
+    { name: "STT", key: "id" },
+    { name: "Lớp đăng ký", key: "Enrolled Class" },
+    { name: "Ngày vắng", key: "Absent Date" },
+    { name: "Tên học sinh", key: "Student Name" },
+    { name: "Biệt danh", key: "Nick Name" },
+    { name: "Mô tả bài học", key: "Lesson Description" },
+    { name: "Nhận xét", key: "Comment" },
+    { name: "Bài tập về nhà", key: "Homework" },
   ];
 
   const reportButtons = [
     {
-      label: "View Test Day Report",
+      label: "Xem báo cáo ngày kiểm tra",
       type: "testDay",
       url: "/api/report/test-day",
-      title: "Test Day Report",
+      title: "Báo cáo ngày kiểm tra",
       columns: columnsReportTestDay,
     },
     {
-      label: "View Absence Report",
+      label: "Xem báo cáo vắng mặt",
       type: "absence",
       url: "/api/report/absence",
-      title: "Absence Report",
+      title: "Báo cáo vắng mặt",
       columns: columnsReportAbsence,
     },
   ];
@@ -338,14 +340,14 @@ const ClassTable: React.FC = () => {
         }}
         onPrint={[
           {
-            label: "Test Day Report",
+            label: "Báo cáo ngày kiểm tra",
             type: "testDay",
             icon: IoMdPrint,
             action: () => handleReportToggle("testDay"),
             color: "primary",
           },
           {
-            label: "Absence Report",
+            label: "Báo cáo vắng mặt",
             type: "absence",
             icon: IoMdPrint,
             action: () => handleReportToggle("absence"),

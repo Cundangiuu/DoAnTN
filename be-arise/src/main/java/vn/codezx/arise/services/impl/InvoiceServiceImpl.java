@@ -168,8 +168,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
     Optional<ClassArise> classArise =
         classAriseRepository.findByCodeAndIsDeleteFalse(inVoiceDTO.getClassCode());
-    classArise.ifPresent(tvms -> {
-      inVoiceDTO.setClassName(tvms.getName());
+    classArise.ifPresent(arise -> {
+      inVoiceDTO.setClassName(arise.getName());
     });
 
     Optional<String> userEmail = auditInfoListener.auditorAware().getCurrentAuditor();

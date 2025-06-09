@@ -16,14 +16,14 @@ const GradeTable = ({ studentId }: Props) => {
   const [loading, setLoading] = useState(true);
 
   const columns = useMemo(
-    () => [
-      { name: "Class", key: "id" },
-      { name: "Midterm", key: "midtermGrade" },
-      { name: "Final", key: "finalGrade" },
-      { name: "Course", key: "resultGrade" },
-    ],
-    []
-  );
+  () => [
+    { name: "Lớp học", key: "id" },
+    { name: "Giữa kỳ", key: "midtermGrade" },
+    { name: "Cuối kỳ", key: "finalGrade" },
+    { name: "Kết quả môn học", key: "resultGrade" },
+  ],
+  []
+);
 
   useEffect(() => {
     const fetchGrades = async () => {

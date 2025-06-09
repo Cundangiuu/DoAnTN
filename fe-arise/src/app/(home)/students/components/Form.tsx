@@ -37,6 +37,7 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
       discountId: student?.discount?.id,
     },
   });
+
   const { isNew, isEdit } = useMeaningfulContext(NewOrEditContext);
   const isReadOnly = student && !isEdit && !isNew;
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -46,10 +47,12 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
   const [avatar, setAvatar] = useState<Blob>();
   const [discounts, setDiscounts] = useState<DiscountDTO[]>();
 
+  // Hàm xử lý submit form
   const onSubmit: SubmitHandler<StudentRequestDTO> = async (studentData) => {
     setFormSubmitting(true);
     const formData = new FormData();
 
+    // Chuẩn bị dữ liệu student gửi lên server
     const studentRequest = {
       name: studentData.name,
       nickname: studentData.nickname,
@@ -66,6 +69,7 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
       new Blob([JSON.stringify(studentRequest)], { type: "application/json" })
     );
 
+    // Nếu có ảnh avatar, thêm vào formData
     if (avatar) {
       const fileName = `${Date.now()}.png`;
       formData.append("avatar", avatar, fileName);
@@ -76,32 +80,34 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
         ? StudentService.updateStudent(formData, student.id)
         : StudentService.createStudent(formData));
       if (!response.data) {
-        toast.error(`Failed to ${isNew ? "create" : "update"} student`);
+        toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} học sinh`);
       } else {
-        toast.success(`${isNew ? "Created" : "Updated"} student successfully!`);
+        toast.success(`${isNew ? "Tạo" : "Cập nhật"} học sinh thành công!`);
         router.push(`/students/${response.data.code}`);
       }
     } catch (error) {
-      console.error("Error submitting the form: ", error);
-      toast.error(`Failed to ${isNew ? "create" : "update"} student`);
+      console.error("Lỗi khi gửi form: ", error);
+      toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} học sinh`);
     } finally {
       setFormSubmitting(false);
     }
   };
 
+  // Hàm xử lý khi người dùng chọn ảnh avatar mới
   const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const avatar = e.target.files?.[0];
     setAvatarUploading(true);
     if (avatar) {
-      const maxFileSize = 10 * 1024 * 1024;
+      const maxFileSize = 10 * 1024 * 1024; // 10MB
       if (avatar.size > maxFileSize) {
-        toast.error("File size exceeds the 5MB limit.");
+        toast.error("Kích thước file vượt quá giới hạn 5MB.");
         return;
       }
 
       const reader = new FileReader();
       reader.onload = () => {
         const src = reader.result?.toString() || "";
+        // Hiển thị modal crop ảnh
         showModal(
           <ImageCropper
             imageSrc={src}
@@ -116,6 +122,7 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
     }
   };
 
+  // Lấy danh sách các loại giảm giá khi component được tạo
   useEffect(() => {
     const getDiscounts = async () => {
       const response = await DiscountService.getAllDiscounts();
@@ -130,6 +137,7 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex gap-3 my-5 justify-end">
+        {/* Nút chỉnh sửa hoặc gửi form */}
         {!isEdit && !isNew ? (
           <EditButton
             href={`/students/${(student as StudentDTO)?.code}/edit`}
@@ -137,6 +145,7 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
         ) : (
           <SubmitButton isLoading={formSubmitting} />
         )}
+        {/* Nút xóa học sinh nếu có */}
         {student && (
           <DeleteActionButton
             id={student.id}
@@ -146,7 +155,9 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
           />
         )}
       </div>
+
       <div className="grid grid-cols-4 gap-4">
+        {/* Avatar và nút upload ảnh */}
         <div className="row-span-3 flex flex-col justify-start gap-3 items-center">
           {avatar ? (
             <Avatar
@@ -182,34 +193,34 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
               }
             }}
           >
-            Upload Avatar
+            Tải ảnh đại diện
           </Button>
         </div>
 
-        {/* Name */}
+        {/* Tên học sinh */}
         <div className="">
           <TextInput
             name="name"
             control={control}
             required
             isReadOnly={isReadOnly}
-            label="Name"
-            placeholder="Enter student name"
+            label="Họ và tên"
+            placeholder="Nhập họ và tên học sinh"
           />
         </div>
 
-        {/* Nickname */}
+        {/* Biệt danh */}
         <div className="">
           <TextInput
             name="nickname"
             control={control}
             isReadOnly={isReadOnly}
-            label="Nickname"
-            placeholder="Enter nickname"
+            label="Biệt danh"
+            placeholder="Nhập biệt danh"
           />
         </div>
 
-        {/* Phone Number */}
+        {/* Số điện thoại */}
         <div className="">
           <TextInput
             name="phoneNumber"
@@ -220,50 +231,50 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
               pattern: {
                 value:
                   /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/,
-                message: "Invalid Phone Number",
+                message: "Số điện thoại không hợp lệ",
               },
             }}
             isReadOnly={isReadOnly}
-            label="Phone Number"
-            placeholder="Enter phone number"
+            label="Số điện thoại"
+            placeholder="Nhập số điện thoại"
           />
         </div>
 
-        {/* Date of birth */}
+        {/* Ngày sinh */}
         <div className="">
           <DateSelect
             name="dateOfBirth"
             required
             control={control}
-            label="Date of birth"
+            label="Ngày sinh"
             rules={{
               validate: () =>
                 new Date(dateOfBirth) < new Date() ||
-                "Date of birth cannot be in the future",
+                "Ngày sinh không được lớn hơn ngày hiện tại",
             }}
             isReadOnly={isReadOnly}
             defaultValue={student?.dateOfBirth}
           />
         </div>
 
-        {/* Email Address */}
+        {/* Email */}
         <div className="">
           <TextInput
             name="emailAddress"
             control={control}
             isReadOnly={isReadOnly}
             type="email"
-            label="Email Address"
-            placeholder="Enter email address"
+            label="Email"
+            placeholder="Nhập địa chỉ email"
           />
         </div>
 
-        {/* Discount Type */}
+        {/* Loại giảm giá */}
         <div className="">
           <SelectInput
             control={control}
             name="discountId"
-            label="Discount Type"
+            label="Loại giảm giá"
             defaultSelectedKey={
               student?.discount && [student?.discount?.id.toString()]
             }
@@ -274,17 +285,17 @@ const Form: React.FC<Readonly<Props>> = ({ student }) => {
               })) || []
             }
             isDisable={isReadOnly}
-            placeholder="Select discount type"
+            placeholder="Chọn loại giảm giá"
           />
         </div>
 
-        {/* Note */}
+        {/* Ghi chú */}
         <div className="">
           <TextArea
             name="note"
             control={control}
-            label="Note"
-            placeholder="Note"
+            label="Ghi chú"
+            placeholder="Ghi chú"
             isReadOnly={isReadOnly}
           />
         </div>

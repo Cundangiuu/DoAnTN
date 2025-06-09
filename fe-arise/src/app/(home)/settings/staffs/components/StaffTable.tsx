@@ -16,13 +16,14 @@ const StaffTable: React.FC = () => {
   const data = staffs;
 
   const columns = [
-    { name: "Staff", key: "staff", align: "start" },
-    { name: "Specialization", key: "courses", align: "start" },
-    { name: "Teaching Availability", key: "schedules", align: "start" },
-    { name: "Roles", key: "roles", align: "start" },
-    { name: "Weekly Hour/Rates", key: "weeklyHoursRates", align: "start" },
-    { name: "Action", key: "Action" },
-  ];
+  { name: "Nhân viên", key: "staff", align: "start" },
+  { name: "Chuyên môn", key: "courses", align: "start" },
+  { name: "Lịch giảng dạy", key: "schedules", align: "start" },
+  { name: "Vai trò", key: "roles", align: "start" },
+  { name: "Giờ/ Lương hàng tuần", key: "weeklyHoursRates", align: "start" },
+  { name: "Hành động", key: "Action" },
+];
+
 
   const renderCell = (key: string, data: StaffDTO) => {
     switch (key) {

@@ -39,11 +39,11 @@ const AvatarDropDown = () => {
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">
-            <p className="font-semibold">Signed in as</p>
+            <p className="font-semibold">Đăng nhập với</p>
             <p className="font-semibold">{user?.email || ""}</p>
           </DropdownItem>
           <DropdownItem onPress={() => signOut()} key="logout" color="danger">
-            Log Out
+            Đăng xuất
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>

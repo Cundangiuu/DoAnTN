@@ -15,10 +15,11 @@ const DiscountTable: React.FC = () => {
   const { discounts, isLoading } = useMeaningfulContext(DiscountContext);
   const data = discounts;
   const columns = [
-    { name: "Type", key: "type", align: "start" },
-    { name: "Description", key: "description" },
-    { name: "Action", key: "Action" },
-  ];
+  { name: "Loại", key: "type", align: "start" },
+  { name: "Mô tả", key: "description" },
+  { name: "Hành động", key: "Action" },
+];
+
 
   const renderCell = (key: string, data: DiscountDTO) => {
     const cellValue = data[key as keyof DiscountDTO];

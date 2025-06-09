@@ -53,16 +53,16 @@ const Form: React.FC<Props> = ({ schedule }) => {
         ? ScheduleService.updateSchedule(scheduleData, schedule.id)
         : ScheduleService.createSchedule(scheduleData));
       if (!response.data) {
-        toast.error(`Failed to ${isNew ? "create" : "update"} schedule`);
+        toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} lịch trình`);
       } else {
         toast.success(
-          `${isNew ? "Created" : "Updated"} schedule successfully!`
+          `${isNew ? "Tạo" : "Cập nhật"} lịch trình thành công!`
         );
         router.push(`/settings/schedules/${response.data.id}`);
       }
     } catch (error) {
-      console.error("Error submitting the form: ", error);
-      toast.error(`Failed to ${isNew ? "create" : "update"} schedule`);
+      console.error("Lỗi khi gửi biểu mẫu: ", error);
+      toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} lịch trình`);
     } finally {
       setFormSubmitting(false);
     }
@@ -82,7 +82,7 @@ const Form: React.FC<Props> = ({ schedule }) => {
           <DeleteActionButton
             id={schedule.id}
             action={ScheduleService.deleteSchedule}
-            objectName={"Schedule"}
+            objectName={"Lịch trình"}
             afterDelete={() => router.push("/settings/schedules")}
           />
         )} */}
@@ -93,9 +93,9 @@ const Form: React.FC<Props> = ({ schedule }) => {
             control={control}
             defaultSelectedKey={schedule && [schedule.dayOfWeek]}
             name="dayOfWeek"
-            label="Day of the Week"
+            label="Ngày trong tuần"
             required
-            placeholder="Select a day of week"
+            placeholder="Chọn ngày trong tuần"
             options={dayOfWeekOptions}
             isDisable={schedule && !isEdit && !isNew}
           />
@@ -108,13 +108,13 @@ const Form: React.FC<Props> = ({ schedule }) => {
               validate: {
                 notGreater: () => {
                   if (startTime >= endTime)
-                    return "Start Time must be less than End Time";
+                    return "Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc";
                 },
               },
             }}
             isDisable={schedule && !isEdit && !isNew}
             name="startTime"
-            label="Start Time"
+            label="Thời gian bắt đầu"
             required
           />
         </div>
@@ -126,13 +126,13 @@ const Form: React.FC<Props> = ({ schedule }) => {
               validate: {
                 notSmaller: () => {
                   if (startTime >= endTime)
-                    return "End Time must be greater than Start Time";
+                    return "Thời gian kết thúc phải lớn hơn thời gian bắt đầu";
                 },
               },
             }}
             isDisable={schedule && !isEdit && !isNew}
             name="endTime"
-            label="End Time"
+            label="Thời gian kết thúc"
             required
           />
         </div>
@@ -140,8 +140,8 @@ const Form: React.FC<Props> = ({ schedule }) => {
           <TextArea
             control={control}
             name="description"
-            label="Description"
-            placeholder="Enter description"
+            label="Mô tả"
+            placeholder="Nhập mô tả"
             isReadOnly={schedule && !isEdit && !isNew}
           />
         </div>

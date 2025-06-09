@@ -34,6 +34,7 @@ export default function CourseForm({
   title,
 }: Readonly<Props>) {
   const router = useRouter();
+
   const onSubmit = async (formData: FormData) => {
     const name = formData.get("name") as string;
     const numberHour = Number(formData.get("numberHour"));
@@ -53,7 +54,7 @@ export default function CourseForm({
     let response;
     if (operation === "update") {
       if (!defaultCourse?.code) {
-        toast.error("Course not found");
+        toast.error("Không tìm thấy khóa học");
         return;
       }
       response = await updateCourse(courseRequest, defaultCourse.code);
@@ -61,10 +62,10 @@ export default function CourseForm({
       response = await addCourse(courseRequest);
     }
     if (!response.data) {
-      toast.error(`Failed to ${operation} course`);
+      toast.error(`Không thể ${operation} khóa học`);
       return;
     }
-    toast.success(`Course ${operation}d`);
+    toast.success(`Khóa học đã được ${operation === "create" ? "tạo" : "cập nhật"}`);
     router.push(`/courses/${response.data.code}`);
   };
 
@@ -82,28 +83,28 @@ export default function CourseForm({
               isDisabled={isDisabled}
               name="name"
               isRequired
-              label="Name"
-              placeholder="Enter course name"
+              label="Tên khóa học"
+              placeholder="Nhập tên khóa học"
               labelPlacement="outside"
               defaultValue={defaultCourse?.name}
             />
             <Input
               isReadOnly={isReadonly}
               isDisabled={isDisabled}
-              label="Number of Hours"
+              label="Số giờ học"
               name="numberHour"
               labelPlacement="outside"
-              placeholder="Number of Hours"
+              placeholder="Số giờ học"
               type="number"
               defaultValue={defaultCourse?.numberHour.toString()}
             />
             <Input
               isReadOnly={isReadonly}
               isDisabled={isDisabled}
-              label="Tuition"
+              label="Học phí"
               name="tuitionRate"
               labelPlacement="outside"
-              placeholder="Enter tuition"
+              placeholder="Nhập học phí"
               startContent={
                 <div className="pointer-events-none flex items-center">
                   <span className="text-default-400 text-small">đ</span>
@@ -115,8 +116,8 @@ export default function CourseForm({
             <Select
               isDisabled={isDisabled}
               name="courseLevelConstants"
-              label="Level"
-              placeholder="Select level"
+              label="Trình độ"
+              placeholder="Chọn trình độ"
               className="w-full"
               labelPlacement="outside"
               isRequired
@@ -136,8 +137,8 @@ export default function CourseForm({
           <div>
             <Textarea
               name="description"
-              label="Description"
-              placeholder="Enter description"
+              label="Mô tả"
+              placeholder="Nhập mô tả"
               isReadOnly={isReadonly}
               isDisabled={isDisabled}
               defaultValue={defaultCourse?.description}
@@ -146,8 +147,8 @@ export default function CourseForm({
         </form>
       </FormContextProvider>
       <div className="w-full flex gap-3 flex-col mt-8 bg-slate-50 p-4 rounded-md">
-        <Tabs aria-label="Infos" color="primary">
-          <Tab key={"outline"} title={"Outline"}>
+        <Tabs aria-label="Thông tin" color="primary">
+          <Tab key={"outline"} title={"Đề cương"}>
             <OutlineTable
               isNew={operation == "create" ? true : false}
               isReadonly={isReadonly}
@@ -155,7 +156,7 @@ export default function CourseForm({
               courseCode={defaultCourse?.code}
             />
           </Tab>
-          <Tab key={"pre-enrollment"} title={"Pre-Enrollment"}>
+          <Tab key={"pre-enrollment"} title={"Đăng ký trước"}>
             <EnrollmentTable
               isNew={operation == "create" ? true : false}
               courseId={defaultCourse?.id}

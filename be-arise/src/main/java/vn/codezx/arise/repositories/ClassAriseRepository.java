@@ -19,7 +19,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
   @Query(value = "SELECT (\n"
       + "    SELECT COUNT(*) FROM (\n"
       + "        SELECT DISTINCT ct.id\n"
-      + "        FROM class_tvms ct\n"
+      + "        FROM class_arise ct\n"
       + "        INNER JOIN class_day cd ON ct.id = cd.class_id\n"
       + "        WHERE cd.class_date >= CURRENT_DATE\n"
       + "          AND ct.start_date <= CURRENT_DATE\n"
@@ -27,7 +27,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
       + ") + (\n"
       + "    SELECT COUNT(*) FROM (\n"
       + "        SELECT DISTINCT ct.id\n"
-      + "        FROM class_tvms ct\n"
+      + "        FROM class_arise ct\n"
       + "        INNER JOIN class_day cd ON ct.id = cd.class_id\n"
       + "        WHERE ct.start_date > CURRENT_DATE\n"
       + "    ) AS upcoming\n"
@@ -70,7 +70,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
       value = """
           SELECT * FROM (
               SELECT DISTINCT ON (c.id, c.start_date) c.*
-              FROM class_tvms c
+              FROM class_arise c
               INNER JOIN class_day cd ON c.id = cd.class_id
               WHERE c.is_delete = false
                 AND (c.code ILIKE CONCAT('%', :searchString, '%')
@@ -83,7 +83,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
       countQuery = """
           SELECT COUNT(*) FROM (
               SELECT DISTINCT c.id, c.start_date
-              FROM class_tvms c
+              FROM class_arise c
               INNER JOIN class_day cd ON c.id = cd.class_id
               WHERE c.is_delete = false
                 AND (c.code ILIKE CONCAT('%', :searchString, '%')
@@ -106,7 +106,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
           SELECT * FROM (
               SELECT DISTINCT ON (ct.id, ct.start_date)
                      ct.*
-              FROM class_tvms ct
+              FROM class_arise ct
               INNER JOIN class_day cd ON ct.id = cd.class_id
               WHERE cd.class_date >= CURRENT_DATE
                 AND ct.start_date <= CURRENT_DATE
@@ -120,7 +120,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
       countQuery = """
           SELECT COUNT(*) FROM (
             SELECT DISTINCT ct.id
-            FROM class_tvms ct
+            FROM class_arise ct
             INNER JOIN class_day cd ON ct.id = cd.class_id
             WHERE cd.class_date >= CURRENT_DATE
               AND ct.start_date <= CURRENT_DATE
@@ -142,7 +142,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
           SELECT * FROM (
               SELECT DISTINCT ON (ct.id, ct.start_date)
                      ct.*
-              FROM class_tvms ct
+              FROM class_arise ct
               INNER JOIN class_day cd ON ct.id = cd.class_id
               WHERE cd.class_date >= CURRENT_DATE
                 AND ct.start_date <= CURRENT_DATE
@@ -157,7 +157,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
       countQuery = """
           SELECT COUNT(*) FROM (
               SELECT DISTINCT ct.id
-              FROM class_tvms ct
+              FROM class_arise ct
               INNER JOIN class_day cd ON ct.id = cd.class_id
               WHERE cd.class_date >= CURRENT_DATE
                 AND ct.start_date <= CURRENT_DATE
@@ -182,7 +182,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
           SELECT * FROM (
               SELECT DISTINCT ON (ct.id, ct.start_date)
                      ct.*
-              FROM class_tvms ct
+              FROM class_arise ct
               INNER JOIN class_day cd ON ct.id = cd.class_id
               WHERE ct.start_date > CURRENT_DATE
                 AND ct.is_delete = false
@@ -197,7 +197,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
       countQuery = """
           SELECT COUNT(*) FROM (
               SELECT DISTINCT ct.id
-              FROM class_tvms ct
+              FROM class_arise ct
               INNER JOIN class_day cd ON ct.id = cd.class_id
               WHERE ct.start_date > CURRENT_DATE
                 AND ct.is_delete = false
@@ -220,7 +220,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
           SELECT * FROM (
               SELECT DISTINCT ON (ct.id, ct.start_date)
                      ct.*
-              FROM class_tvms ct
+              FROM class_arise ct
               INNER JOIN class_day cd ON ct.id = cd.class_id
               WHERE ct.start_date > CURRENT_DATE
                 AND ct.is_delete = false
@@ -239,7 +239,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
       countQuery = """
           SELECT COUNT(*) FROM (
               SELECT DISTINCT ct.id
-              FROM class_tvms ct
+              FROM class_arise ct
               INNER JOIN class_day cd ON ct.id = cd.class_id
               WHERE ct.start_date > CURRENT_DATE
                 AND ct.is_delete = false
@@ -266,11 +266,11 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
   @Query(
       value = """
           SELECT *
-          FROM class_tvms ct
+          FROM class_arise ct
           WHERE ct.id NOT IN (
               SELECT cd.class_id
               FROM class_day cd
-              INNER JOIN class_tvms cct ON cct.id = cd.class_id
+              INNER JOIN class_arise cct ON cct.id = cd.class_id
               WHERE cd.class_date >= CURRENT_DATE
                 OR cct.start_date > CURRENT_DATE
           )
@@ -284,11 +284,11 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
       countQuery = """
           SELECT COUNT(*) FROM (
               SELECT ct.id
-              FROM class_tvms ct
+              FROM class_arise ct
               WHERE ct.id NOT IN (
                   SELECT cd.class_id
                   FROM class_day cd
-                  INNER JOIN class_tvms cct ON cct.id = cd.class_id
+                  INNER JOIN class_arise cct ON cct.id = cd.class_id
                   WHERE cd.class_date >= CURRENT_DATE
                     OR cct.start_date > CURRENT_DATE
               )
@@ -312,12 +312,12 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
           SELECT * FROM (
               SELECT DISTINCT ON (ct.id, ct.start_date)
                      ct.*
-              FROM class_tvms ct
+              FROM class_arise ct
               INNER JOIN class_day cd ON ct.id = cd.class_id
               WHERE ct.id NOT IN (
                   SELECT cd.class_id
                   FROM class_day cd
-                  JOIN class_tvms ct2 ON cd.class_id = ct2.id
+                  JOIN class_arise ct2 ON cd.class_id = ct2.id
                   WHERE cd.class_date >= CURRENT_DATE
                      OR ct2.start_date > CURRENT_DATE
               )
@@ -336,12 +336,12 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
       countQuery = """
           SELECT COUNT(*) FROM (
               SELECT DISTINCT ct.id
-              FROM class_tvms ct
+              FROM class_arise ct
               INNER JOIN class_day cd ON ct.id = cd.class_id
               WHERE ct.id NOT IN (
                   SELECT cd.class_id
                   FROM class_day cd
-                  JOIN class_tvms ct2 ON cd.class_id = ct2.id
+                  JOIN class_arise ct2 ON cd.class_id = ct2.id
                   WHERE cd.class_date >= CURRENT_DATE
                      OR ct2.start_date > CURRENT_DATE
               )
@@ -368,7 +368,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
 
   @Query(value = """
         select distinct ct.*
-        from class_tvms ct
+        from class_arise ct
         join class_day cd
         on cd.class_id = ct.id
         where
@@ -384,7 +384,7 @@ public interface ClassAriseRepository extends JpaRepository<ClassArise, Integer>
   @Query(value = """
       SELECT
         ct.*
-      FROM class_tvms ct
+      FROM class_arise ct
           LEFT JOIN class_day cd ON ct.id = cd.class_id
       WHERE
           ct.is_delete = false

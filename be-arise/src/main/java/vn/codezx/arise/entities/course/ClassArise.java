@@ -36,7 +36,7 @@ import vn.codezx.arise.entities.student.Student;
 @SuperBuilder
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Table(name = "class_tvms")
+@Table(name = "class_arise")
 public class ClassArise extends BaseInfo {
 
   @Id

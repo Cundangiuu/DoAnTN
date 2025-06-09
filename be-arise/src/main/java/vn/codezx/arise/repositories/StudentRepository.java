@@ -24,7 +24,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     @Query(value = "SELECT Count(DISTINCT s.id)\n"
             + "FROM student s\n"
             + "JOIN enrollment e ON s.id = e.student_id\n"
-            + "JOIN class_tvms ct ON e.class_tvms_id = ct.id\n"
+            + "JOIN class_arise ct ON e.class_arise_id = ct.id\n"
             + "JOIN class_day cd ON ct.id = cd.class_id\n"
             + "WHERE \n"
             + "  (\n"

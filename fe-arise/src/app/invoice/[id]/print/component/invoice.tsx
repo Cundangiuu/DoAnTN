@@ -23,12 +23,12 @@ export default function Invoice({
           </div>
           <div className="text-center">
             <p className="font-semibold mb-1">
-              TRUNG TÂM NGOẠI NGỮ TRÍ VIỆT - CƠ SỞ 2
+              TRUNG TÂM NGOẠI NGỮ ARISE - 
             </p>
-            <p>Hoàng Diệu, Phường Trảng Bàng, TX Trảng Bàng, Tây Ninh</p>
+            <p>Hà Huy Tập, Thành Phố Buôn Ma Thuột, Đắk Lắk</p>
           </div>
           <div className="text-right">
-            <p>Tve-ims</p>
+            <p>Arise - Education</p>
           </div>
         </div>
         <h1 className="text-2xl font-bold mt-4">PHIẾU THU</h1>

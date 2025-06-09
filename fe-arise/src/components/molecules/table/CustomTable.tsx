@@ -89,7 +89,7 @@ const CustomTable = <T extends DtoType>({
         <TableBody
           loadingContent={<Spinner />}
           isLoading={isLoading}
-          emptyContent="No data"
+          emptyContent="Không có dữ liệu"
           items={data || []}
         >
           {(item) => (

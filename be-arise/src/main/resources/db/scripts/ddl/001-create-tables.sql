@@ -135,7 +135,7 @@ CREATE TABLE lesson (
   is_delete BOOLEAN default false
 );
 
-CREATE TABLE class_tvms (
+CREATE TABLE class_arise (
   id SERIAL PRIMARY KEY,
   code VARCHAR(50) not null,
   course_id INTEGER NOT NULL,
@@ -254,7 +254,7 @@ alter table grade
 ALTER TABLE lesson
   ADD CONSTRAINT unique_lesson_code UNIQUE (code);
 
-ALTER TABLE class_tvms
+ALTER TABLE class_arise
   ADD CONSTRAINT unique_class_code UNIQUE (code);
 
  ALTER TABLE enrollment
@@ -272,32 +272,32 @@ ALTER TABLE class_tvms
   ADD CONSTRAINT fk_attendance_student
   FOREIGN KEY (student_id) REFERENCES student (id),
   ADD CONSTRAINT fk_attendance_class
-  FOREIGN KEY (class_id) REFERENCES class_tvms (id),
+  FOREIGN KEY (class_id) REFERENCES class_arise (id),
   add constraint fk_attendance_class_day
   foreign key (class_day_id) references class_day (id);
 
  alter table staff_class
  	add primary key (staff_id, class_id),
  	add foreign key (staff_id) references staff (id),
- 	add foreign key (class_id) references class_tvms (id);
+ 	add foreign key (class_id) references class_arise (id);
 
 ALTER TABLE lesson
   ADD CONSTRAINT fk_lesson_course
   FOREIGN KEY (course_id) REFERENCES course(id);
 
-ALTER TABLE class_tvms
+ALTER TABLE class_arise
   ADD CONSTRAINT fk_class_course
   FOREIGN KEY (course_id) REFERENCES course(id),
   add CONSTRAINT fk_class_class_schedule
   foreign key (class_schedule_id) references class_schedule(id);
 
  alter table class_day
- 	add foreign key (class_id) references class_tvms (id),
+ 	add foreign key (class_id) references class_arise (id),
  	add foreign key (lesson_id) references lesson (id),
     add constraint unique_class_lesson unique (class_id, lesson_id);
 
 alter table grade
- 	add foreign key (class_id) references class_tvms (id),
+ 	add foreign key (class_id) references class_arise (id),
  	add foreign key (student_id) references student (id),
     add foreign key (test_type_id) references test_type (id),
     add constraint unique_grade unique (class_id, student_id, test_type_id);

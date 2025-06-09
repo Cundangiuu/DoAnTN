@@ -4,21 +4,21 @@ import { Selection } from "@nextui-org/react";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export const selectOptions: FilterOptionType[0]["options"] = [
-  { key: "all", label: "ALL" },
-  { key: ClassStatus.NEW, label: "New" },
-  { key: ClassStatus.ON_GOING, label: "On going" },
-  { key: ClassStatus.ENDED, label: "Ended" },
+  { key: "all", label: "Tất cả" },
+  { key: ClassStatus.NEW, label: "Mới" },
+  { key: ClassStatus.ON_GOING, label: "Đang diễn ra" },
+  { key: ClassStatus.ENDED, label: "Đã kết thúc" },
 ];
 
 export const columns = [
-  { name: "Code", key: "code", align: "start" },
-  { name: "Name", key: "name" },
-  { name: "Schedules", key: "schedules" },
-  { name: "Academic Staff", key: "staff" },
-  { name: "Class info", key: "classInfo" },
-  { name: "Start Date", key: "startDate" },
-  { name: "Location", key: "location" },
-  { name: "Action", key: "Action" },
+  { name: "Mã lớp", key: "code", align: "start" },
+  { name: "Tên lớp", key: "name" },
+  { name: "Lịch học", key: "schedules" },
+  { name: "Giảng viên", key: "staff" },
+  { name: "Thông tin lớp", key: "classInfo" },
+  { name: "Ngày bắt đầu", key: "startDate" },
+  { name: "Địa điểm", key: "location" },
+  { name: "Hành động", key: "Action" },
 ];
 
 export const getFilterOptions = (
@@ -29,7 +29,7 @@ export const getFilterOptions = (
 ) =>
   [
     {
-      label: "Status",
+      label: "Trạng thái",
       props: {
         selectedKeys: selection,
         selectionMode: "single",

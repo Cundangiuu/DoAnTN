@@ -8,45 +8,45 @@ import SettingCard from "./components/SettingCard";
 
 const settings = [
   {
-    title: "Staff",
+    title: "Nhân Viên",
     href: "/settings/staffs",
     icon: <MdDiscount />,
-    description: "Manage Staffs",
+    description: "Quản lý nhân viên",
   },
   {
-    title: "Discount",
+    title: "Chiết Khấu",
     href: "/settings/discounts",
     icon: <MdDiscount />,
     description:
-      "Manage discount policies for tuition fees and special promotions to enhance affordability and accessibility.",
+      "Quản lý chính sách chiết khấu học phí và các chương trình khuyến mãi đặc biệt để tăng tính hợp lý và khả năng tiếp cận.",
   },
   {
-    title: "Schedule",
+    title: "Lịch Trình",
     href: "/settings/schedules",
     icon: <GrSchedule />,
     description:
-      "Organize class schedules, manage timetables, and allocate resources effectively for smooth academic operations.",
+      "Tổ chức lịch học, quản lý thời khóa biểu và phân bổ tài nguyên hiệu quả để đảm bảo hoạt động học tập suôn sẻ.",
   },
   {
-    title: "Location",
+    title: "Địa Điểm",
     href: "/settings/locations",
     icon: <FaLocationArrow />,
     description:
-      "Set up and manage campus locations, classrooms, and other physical or virtual learning spaces.",
+      "Thiết lập và quản lý các địa điểm campus, phòng học, và các không gian học tập vật lý hoặc ảo.",
   },
   {
-    title: "Holiday",
+    title: "Ngày Nghỉ",
     href: "/settings/holidays",
     icon: <MdHolidayVillage />,
     description:
-      "Plan and manage holidays, breaks, and academic calendar events for the institution.",
+      "Lên kế hoạch và quản lý các ngày nghỉ, kỳ nghỉ, và các sự kiện trong lịch học của trường.",
   },
   {
-    title: "Formula",
+    title: "Công Thức",
     href: "/settings/formulas",
     icon: <RiFormula />,
     description:
-      "Create and manage formulas for calculating grades, fees, and other academic or financial metrics.",
+      "Tạo và quản lý các công thức tính điểm, học phí và các chỉ số học thuật hoặc tài chính khác.",
   },
 ];
 

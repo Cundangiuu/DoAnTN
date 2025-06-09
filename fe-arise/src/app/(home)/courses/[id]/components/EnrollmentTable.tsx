@@ -99,16 +99,17 @@ export default function EnrollmentTable({
   };
 
   const columns = [
-    { name: "No.", key: "index" },
-    { name: "Select Enrollment", key: "select", align: "start" },
-    { name: "Avatar", key: "avatar" },
-    { name: "Student Name", key: "studentName" },
-    { name: "Student Description", key: "studentDescription" },
-    { name: "Enrollment Date", key: "enrollmentDate" },
-    { name: "Phone Number", key: "phoneNumber" },
-    { name: "Date Of Birth", key: "dateOfBirth" },
-    { name: "Action", key: "action" },
-  ];
+  { name: "STT", key: "index" }, // Số thứ tự
+  { name: "Chọn ghi danh", key: "select", align: "start" },
+  { name: "Ảnh đại diện", key: "avatar" },
+  { name: "Tên học viên", key: "studentName" },
+  { name: "Mô tả học viên", key: "studentDescription" },
+  { name: "Ngày ghi danh", key: "enrollmentDate" },
+  { name: "Số điện thoại", key: "phoneNumber" },
+  { name: "Ngày sinh", key: "dateOfBirth" },
+  { name: "Thao tác", key: "action" }, // Nút sửa, xoá...
+];
+
 
   const deleteAction = async (id: number) => {
     setLoading(true);
@@ -306,15 +307,15 @@ export default function EnrollmentTable({
     }
 
     const formattedData = data.map((enrollment, index) => ({
-      No: index + 1,
-      "Student Code": enrollment.student?.code || "",
-      "Student Name": enrollment.student?.name || "Unknown",
-      "Enrollment Date": DateToStringWithoutTime(enrollment.enrollmentDate),
-      "Phone Number": enrollment.student?.phoneNumber || "",
-      "Date Of Birth": DateToStringWithoutTime(
-        new Date(enrollment.student?.dateOfBirth || "")
-      ),
-    }));
+    Số_thứ_tự: index + 1,
+    "Mã học viên": enrollment.student?.code || "",
+    "Tên học viên": enrollment.student?.name || "Không rõ",
+    "Ngày ghi danh": DateToStringWithoutTime(enrollment.enrollmentDate),
+    "Ngày sinh": DateToStringWithoutTime(
+      new Date(enrollment.student?.dateOfBirth || "")
+    ),
+  }));
+
 
     const worksheet = XLSX.utils.json_to_sheet(formattedData);
     const workbook = XLSX.utils.book_new();
@@ -354,7 +355,7 @@ export default function EnrollmentTable({
             }`}
           disabled={selectedEnrollments.length === 0}
         >
-          Create Class
+          Tạo lớp
         </button>
       </div>
       <TableWrapper<IndexedEnrollmentDTO>

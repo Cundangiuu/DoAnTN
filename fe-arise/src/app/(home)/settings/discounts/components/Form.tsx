@@ -39,17 +39,17 @@ const Form: React.FC<Props> = ({ discount }) => {
         ? DiscountService.updateDiscount(discountData, discount.id)
         : DiscountService.createDiscount(discountData));
       if (!response.data) {
-        toast.error(`Failed to ${isNew ? "create" : "update"} discount`);
+        toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} giảm giá`);
       } else {
         toast.success(
-          `${isNew ? "Created" : "Updated"} discount successfully!`
+          `${isNew ? "Tạo" : "Cập nhật"} giảm giá thành công!`
         );
 
         router.push(`/settings/discounts/${response.data.id}`);
       }
     } catch (error) {
-      console.error("Error submitting the form: ", error);
-      toast.error(`Failed to ${isNew ? "create" : "update"} discount`);
+      console.error("Lỗi khi gửi biểu mẫu: ", error);
+      toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} giảm giá`);
     } finally {
       setFormSubmitting(false);
     }
@@ -69,40 +69,40 @@ const Form: React.FC<Props> = ({ discount }) => {
           <DeleteActionButton
             id={discount.id}
             action={DiscountService.deleteDiscount}
-            objectName={"Discount"}
+            objectName={"Giảm giá"}
             afterDelete={() => router.push("/settings/discounts")}
           />
         )} */}
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        {/* Type */}
+        {/* Loại */}
         <TextInput
           name="type"
           control={control}
           required
           isReadOnly={isReadOnly}
-          label="Type"
-          placeholder="Enter type"
+          label="Loại"
+          placeholder="Nhập loại"
         />
 
-        {/* Amount */}
+        {/* Số tiền */}
         <TextInput
           name="amount"
           control={control}
           type="number"
           required
           isReadOnly={isReadOnly}
-          label="Amount"
-          placeholder="Enter amount"
+          label="Số tiền"
+          placeholder="Nhập số tiền"
         />
 
-        {/* Description */}
+        {/* Mô tả */}
         <TextArea
           control={control}
           name="description"
-          label="Description"
-          placeholder="Enter description"
+          label="Mô tả"
+          placeholder="Nhập mô tả"
           isReadOnly={isReadOnly}
         />
       </div>

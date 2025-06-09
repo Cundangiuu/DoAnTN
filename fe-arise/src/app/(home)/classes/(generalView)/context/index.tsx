@@ -32,13 +32,13 @@ export default function GeneralClassContextProvider({
     }
 
     if (!response.data) {
-      toast.error("Failed to export data. Please contact the administrator.");
+      toast.error("Xuất dữ liệu thất bại. Vui lòng liên hệ quản trị viên.");
       return;
     }
 
     const exportData = response.data.content;
     if (!exportData || exportData.length === 0) {
-      toast.error("No data available to export.");
+      toast.error("Không có dữ liệu để xuất.");
       return;
     }
 
@@ -64,29 +64,29 @@ export default function GeneralClassContextProvider({
       const nextClassDay = classArise.classDays[nextClassDayIndex];
 
       return {
-        No: index + 1,
-        Code: classArise.code,
-        "Class Name": classArise.name,
-        "Course Name": classArise.course?.name ?? "N/A",
-        Schedules: `${classArise.schedules.map((s) => s.code).join(", ")}`,
-        "Academic Staff": classArise.staff
+        "STT": index + 1,
+        "Mã lớp": classArise.code,
+        "Tên lớp": classArise.name,
+        "Tên khóa học": classArise.course?.name ?? "Không có",
+        "Lịch học": `${classArise.schedules.map((s) => s.code).join(", ")}`,
+        "Giảng viên": classArise.staff
           ? `${classArise.staff?.firstName} ${classArise.staff?.lastName}`
-          : "N/A",
-        "Next class lesson": nextClassDay?.lesson
+          : "Không có",
+        "Bài học tiếp theo": nextClassDay?.lesson
           ? nextClassDay.lesson.description
-          : "N/A",
-        "Next class teacher": nextClassDay?.teacher
+          : "Không có",
+        "Giảng viên tiếp theo": nextClassDay?.teacher
           ? `${nextClassDay.teacher.firstName} ${nextClassDay.teacher.lastName}`
-          : "N/A",
-        "Lesson count": `${nextClassDayIndex === -1 ? 0 : nextClassDayIndex}/${classArise.classDays.length
+          : "Không có",
+        "Số lượng bài học": `${nextClassDayIndex === -1 ? 0 : nextClassDayIndex}/${classArise.classDays.length
           }`,
-        "Student count": classArise.students.length,
-        "Start date": classArise.startDate
+        "Số lượng học sinh": classArise.students.length,
+        "Ngày bắt đầu": classArise.startDate
           ? DateToStringWithoutTime(new Date(classArise.startDate))
-          : "N/A",
-        "Next Location": nextClassDay?.location
+          : "Không có",
+        "Địa điểm tiếp theo": nextClassDay?.location
           ? `${nextClassDay.location.branch} - ${nextClassDay.location.room}`
-          : "N/A",
+          : "Không có",
       };
     });
 
@@ -111,8 +111,10 @@ export default function GeneralClassContextProvider({
   );
 
   return (
-    <GeneralClassContext.Provider value={initValue}>
-      {children}
-    </GeneralClassContext.Provider>
+    <div className="relative"> {/* Để tạo vị trí cho lớp phủ */}
+      <GeneralClassContext.Provider value={initValue}>
+        {children}
+      </GeneralClassContext.Provider>
+    </div>
   );
 }

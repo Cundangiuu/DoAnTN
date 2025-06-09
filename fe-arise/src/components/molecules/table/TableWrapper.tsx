@@ -226,7 +226,7 @@ const TableWrapper = <T extends DtoType>({
                 base: "w-full sm:max-w-[44%]",
                 inputWrapper: "border-1",
               }}
-              placeholder="Search by name..."
+              placeholder="Tìm kiếm theo tên..."
               size="sm"
               startContent={<IoSearchOutline />}
               defaultValue={filterValue ?? ""}
@@ -321,7 +321,7 @@ const TableWrapper = <T extends DtoType>({
                 endContent={<HiOutlinePlus />}
                 size="sm"
               >
-                Add New
+                Thêm Mới
               </Button>
             )}
             {onPrintFunction && (
@@ -361,7 +361,7 @@ const TableWrapper = <T extends DtoType>({
                 size="sm"
                 className="w-20"
               >
-                Export
+                Xuất
               </Button>
             )}
           </div>
@@ -370,7 +370,7 @@ const TableWrapper = <T extends DtoType>({
           <div className="flex justify-between items-center">
             {paginationInfo.totalElements === 0 ? (
               <span className="text-default-400 text-small">
-                Total 0 / 0 records
+                Tổng số 0 / 0 hồ sơ
               </span>
             ) : (
               <span className="text-default-400 text-small">
@@ -381,7 +381,7 @@ const TableWrapper = <T extends DtoType>({
 
             {rowPerPageInfo && (
               <label className="flex items-center text-default-400 text-small">
-                Rows per page:
+                Số hàng trên mỗi trang:
                 <select
                   className="bg-transparent outline-none text-default-400 text-small"
                   onChange={onRowsPerPageChange}

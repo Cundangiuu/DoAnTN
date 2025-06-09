@@ -47,6 +47,7 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
   const [schedules, setSchedules] = useState<ScheduleDTO[]>();
   const [formSubmitting, setFormSubmitting] = useState(false);
 
+  // Lấy dữ liệu cho dropdown
   useEffect(() => {
     const fetchData = async () => {
       const coursesResponse = await CourseService.getAllCourse();
@@ -61,6 +62,7 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
     fetchData();
   }, []);
 
+  // Cấu hình biểu mẫu
   const { handleSubmit, control } = useForm<StaffRequestDTO>({
     defaultValues: {
       firstName: staff?.firstName,
@@ -75,6 +77,7 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
     },
   });
 
+  // Xử lý khi submit biểu mẫu
   const onSubmit: SubmitHandler<StaffRequestDTO> = async (staffData) => {
     setFormSubmitting(true);
     const formData = new FormData();
@@ -107,26 +110,27 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
         : StaffService.createStaff(formData));
 
       if (!response.data) {
-        toast.error(`Failed to ${staff ? "update" : "create"} staff`);
+        toast.error(`Không thể ${staff ? "cập nhật" : "tạo"} nhân viên`);
       } else {
-        toast.success(`Staff ${staff ? "updated" : "created"} successfully!`);
+        toast.success(`Nhân viên đã được ${staff ? "cập nhật" : "tạo"} thành công!`);
         router.push(`/settings/staffs/${response.data.id}`);
       }
     } catch (error) {
-      console.error("Error submitting the form: ", error);
-      toast.error(`Failed to ${staff ? "update" : "create"} staff`);
+      console.error("Lỗi khi gửi biểu mẫu: ", error);
+      toast.error(`Không thể ${staff ? "cập nhật" : "tạo"} nhân viên`);
     } finally {
       setFormSubmitting(false);
     }
   };
 
+  // Xử lý tải lên avatar
   const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const avatar = e.target.files?.[0];
     setAvatarUploading(true);
     if (avatar) {
       const maxFileSize = 10 * 1024 * 1024;
       if (avatar.size > maxFileSize) {
-        toast.error("File size exceeds the 5MB limit.");
+        toast.error("Kích thước file vượt quá giới hạn 5MB.");
         return;
       }
 
@@ -149,11 +153,10 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {/* Nút hành động */}
       <div className="flex gap-3 my-5 justify-end">
         {!isEdit && !isNew ? (
-          <EditButton
-            href={`/settings/staffs/${(staff as StaffDTO)?.id}/edit`}
-          />
+          <EditButton href={`/settings/staffs/${(staff as StaffDTO)?.id}/edit`} />
         ) : (
           <SubmitButton isLoading={formSubmitting} />
         )}
@@ -161,18 +164,17 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
           <DeleteActionButton
             id={staff.id}
             action={StaffService.deleteStaff}
-            objectName="Staff"
+            objectName="Nhân viên"
             afterDelete={() => router.push("/settings/staffs")}
           />
         )}
       </div>
+
       <div className="grid grid-cols-2 gap-4">
+        {/* Khu vực ảnh đại diện */}
         <div className="row-span-3 flex flex-col justify-start gap-3 items-center">
           {avatar ? (
-            <Avatar
-              src={URL.createObjectURL(avatar)}
-              className="h-[80px] w-[80px]"
-            />
+            <Avatar src={URL.createObjectURL(avatar)} className="h-[80px] w-[80px]" />
           ) : staff?.avatarUrl ? (
             <Avatar
               src={`/api/images?filePath=${staff.avatarUrl}`}
@@ -196,158 +198,130 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
             startContent={!avatarUploading && <FaCameraRetro />}
             isLoading={avatarUploading}
             isDisabled={(!isNew && !isEdit) || avatarUploading}
-            onPress={() => {
-              if (fileInputRef.current) {
-                fileInputRef.current.click();
-              }
-            }}
+            onPress={() => fileInputRef.current?.click()}
           >
-            Upload Avatar
+            Tải ảnh đại diện
           </Button>
         </div>
 
-        {/* First Name */}
-        <div className="">
-          <TextInput
-            name="firstName"
-            control={control}
-            isReadOnly={isReadOnly}
-            label="First Name"
-            placeholder="Enter first name"
-          />
-        </div>
+        {/* Họ */}
+        <TextInput
+          name="firstName"
+          control={control}
+          isReadOnly={isReadOnly}
+          label="Họ"
+          placeholder="Nhập họ"
+        />
 
-        {/* Last Name */}
-        <div className="">
-          <TextInput
-            name="lastName"
-            control={control}
-            isReadOnly={isReadOnly}
-            label="Last Name"
-            placeholder="Enter last name"
-          />
-        </div>
+        {/* Tên */}
+        <TextInput
+          name="lastName"
+          control={control}
+          isReadOnly={isReadOnly}
+          label="Tên"
+          placeholder="Nhập tên"
+        />
 
-        {/* Email Address */}
-        <div className="">
-          <TextInput
-            name="emailAddress"
-            control={control}
-            required
-            type="email"
-            isReadOnly={isReadOnly}
-            label="Email Address"
-            placeholder="Enter email address"
-          />
-        </div>
+        {/* Email */}
+        <TextInput
+          name="emailAddress"
+          control={control}
+          required
+          type="email"
+          isReadOnly={isReadOnly}
+          label="Địa chỉ Email"
+          placeholder="Nhập email"
+        />
 
-        {/* Phone Number */}
-        <div className="">
-          <TextInput
-            name="phoneNumber"
-            control={control}
-            type="tel"
-            isReadOnly={isReadOnly}
-            label="Phone Number"
-            placeholder="Enter phone number"
-          />
-        </div>
+        {/* Số điện thoại */}
+        <TextInput
+          name="phoneNumber"
+          control={control}
+          type="tel"
+          isReadOnly={isReadOnly}
+          label="Số điện thoại"
+          placeholder="Nhập số điện thoại"
+        />
 
-        {/* Weekly Hours */}
-        <div className="">
-          <TextInput
-            name="weeklyHours"
-            control={control}
-            type="text"
-            rules={{
-              pattern: { value: /^[1-9]\d*$/, message: "Must be Integer" },
-            }}
-            isReadOnly={isReadOnly}
-            label="Weekly Hours"
-            placeholder="Enter weekly hours"
-          />
-        </div>
+        {/* Giờ dạy trong tuần */}
+        <TextInput
+          name="weeklyHours"
+          control={control}
+          type="text"
+          rules={{ pattern: { value: /^[1-9]\d*$/, message: "Phải là số nguyên" } }}
+          isReadOnly={isReadOnly}
+          label="Số giờ dạy / tuần"
+          placeholder="Nhập số giờ"
+        />
 
-        {/* Rates */}
-        <div className="">
-          <TextInput
-            name="rates"
-            control={control}
-            type="text"
-            rules={{
-              pattern: { value: /^[1-9]\d*$/, message: "Must be Integer" },
-            }}
-            isReadOnly={isReadOnly}
-            label="Rates"
-            placeholder="Enter rates"
-          />
-        </div>
+        {/* Mức lương */}
+        <TextInput
+          name="rates"
+          control={control}
+          type="text"
+          rules={{ pattern: { value: /^[1-9]\d*$/, message: "Phải là số nguyên" } }}
+          isReadOnly={isReadOnly}
+          label="Mức lương"
+          placeholder="Nhập mức lương"
+        />
 
-        {/* Roles */}
-        <div>
-          <SelectInput
-            control={control}
-            name="roleIds"
-            label="Roles"
-            defaultSelectedKey={staff?.roles.map((role) => role.id.toString())}
-            required
-            options={
-              roles?.map((role: RoleDTO) => ({
-                key: role.id,
-                label: role.name
-                  .toLowerCase()
-                  .split("_")
-                  .map((word) => word[0].toUpperCase() + word.slice(1))
-                  .join(" "),
-              })) || []
-            }
-            multiple
-            isDisable={isReadOnly}
-            placeholder="Select roles"
-          />
-        </div>
+        {/* Vai trò */}
+        <SelectInput
+          control={control}
+          name="roleIds"
+          label="Vai trò"
+          defaultSelectedKey={staff?.roles.map((role) => role.id.toString())}
+          required
+          options={
+            roles?.map((role: RoleDTO) => ({
+              key: role.id,
+              label: role.name
+                .toLowerCase()
+                .split("_")
+                .map((word) => word[0].toUpperCase() + word.slice(1))
+                .join(" "),
+            })) || []
+          }
+          multiple
+          isDisable={isReadOnly}
+          placeholder="Chọn vai trò"
+        />
 
-        {/* Courses */}
-        <div>
-          <SelectInput
-            control={control}
-            name="courseIds"
-            label="Specialization"
-            defaultSelectedKey={staff?.courses.map((course) =>
-              course.id.toString()
-            )}
-            options={
-              courses?.map((course) => ({
-                key: course.id,
-                label: course.name,
-              })) || []
-            }
-            multiple
-            isDisable={isReadOnly}
-            placeholder="Select courses"
-          />
-        </div>
+        {/* Môn dạy */}
+        <SelectInput
+          control={control}
+          name="courseIds"
+          label="Chuyên môn"
+          defaultSelectedKey={staff?.courses.map((course) => course.id.toString())}
+          options={
+            courses?.map((course) => ({
+              key: course.id,
+              label: course.name,
+            })) || []
+          }
+          multiple
+          isDisable={isReadOnly}
+          placeholder="Chọn môn chuyên môn"
+        />
 
-        {/* Schedules */}
-        <div>
-          <SelectInput
-            control={control}
-            name="scheduleIds"
-            label="Teaching Availability"
-            defaultSelectedKey={staff?.schedules.map((schedule) =>
-              schedule.id.toString()
-            )}
-            multiple
-            isDisable={isReadOnly}
-            placeholder="Select schedules"
-            options={
-              schedules?.map((schedule) => ({
-                key: schedule.id,
-                label: schedule.code,
-              })) || []
-            }
-          />
-        </div>
+        {/* Lịch dạy */}
+        <SelectInput
+          control={control}
+          name="scheduleIds"
+          label="Lịch dạy"
+          defaultSelectedKey={staff?.schedules.map((schedule) =>
+            schedule.id.toString()
+          )}
+          multiple
+          isDisable={isReadOnly}
+          placeholder="Chọn lịch dạy"
+          options={
+            schedules?.map((schedule) => ({
+              key: schedule.id,
+              label: schedule.code,
+            })) || []
+          }
+        />
       </div>
     </form>
   );
