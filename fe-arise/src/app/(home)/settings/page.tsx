@@ -8,45 +8,45 @@ import SettingCard from "./components/SettingCard";
 
 const settings = [
   {
-    title: "Nhân Viên",
+    title: "Staff",
     href: "/settings/staffs",
     icon: <MdDiscount />,
-    description: "Quản lý nhân viên",
+    description: "Manage staff members",
   },
   {
-    title: "Chiết Khấu",
+    title: "Discounts",
     href: "/settings/discounts",
     icon: <MdDiscount />,
     description:
-      "Quản lý chính sách chiết khấu học phí và các chương trình khuyến mãi đặc biệt để tăng tính hợp lý và khả năng tiếp cận.",
+      "Manage tuition discount policies and special promotion programs to enhance affordability and accessibility.",
   },
   {
-    title: "Lịch Trình",
+    title: "Schedules",
     href: "/settings/schedules",
     icon: <GrSchedule />,
     description:
-      "Tổ chức lịch học, quản lý thời khóa biểu và phân bổ tài nguyên hiệu quả để đảm bảo hoạt động học tập suôn sẻ.",
+      "Organize class schedules, manage timetables, and efficiently allocate resources to ensure smooth learning operations.",
   },
   {
-    title: "Địa Điểm",
+    title: "Locations",
     href: "/settings/locations",
     icon: <FaLocationArrow />,
     description:
-      "Thiết lập và quản lý các địa điểm campus, phòng học, và các không gian học tập vật lý hoặc ảo.",
+      "Set up and manage campus locations, classrooms, and physical or virtual learning spaces.",
   },
   {
-    title: "Ngày Nghỉ",
+    title: "Holidays",
     href: "/settings/holidays",
     icon: <MdHolidayVillage />,
     description:
-      "Lên kế hoạch và quản lý các ngày nghỉ, kỳ nghỉ, và các sự kiện trong lịch học của trường.",
+      "Plan and manage holidays, vacations, and events in the school's academic calendar.",
   },
   {
-    title: "Công Thức",
+    title: "Formulas",
     href: "/settings/formulas",
     icon: <RiFormula />,
     description:
-      "Tạo và quản lý các công thức tính điểm, học phí và các chỉ số học thuật hoặc tài chính khác.",
+      "Create and manage formulas for calculating grades, tuition fees, and other academic or financial metrics.",
   },
 ];
 

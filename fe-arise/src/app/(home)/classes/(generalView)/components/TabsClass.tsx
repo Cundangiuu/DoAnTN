@@ -17,7 +17,7 @@ export default function TabClass({
       <div className="bg-white rounded-lg shadow-md p-4">
         <Tabs
           key={searchParams.toString()}
-          aria-label="Thông tin"
+          aria-label="Information"
           color="primary"
           variant="light"
           classNames={{
@@ -35,11 +35,11 @@ export default function TabClass({
           }}
         >
           {roles.some((r) => r === "ACADEMIC_STAFF" || r === "TEACHER") && (
-            <Tab title="Lớp của tôi" key={"my-classes"}>
+            <Tab title="My Classes" key={"my-classes"}>
               {children}
             </Tab>
           )}
-          <Tab title="Tất cả lớp" key={"all-classes"}>
+          <Tab title="All Classes" key={"all-classes"}>
             {children}
           </Tab>
         </Tabs>

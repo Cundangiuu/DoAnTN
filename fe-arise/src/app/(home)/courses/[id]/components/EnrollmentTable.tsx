@@ -99,17 +99,16 @@ export default function EnrollmentTable({
   };
 
   const columns = [
-  { name: "STT", key: "index" }, // Số thứ tự
-  { name: "Chọn ghi danh", key: "select", align: "start" },
-  { name: "Ảnh đại diện", key: "avatar" },
-  { name: "Tên học viên", key: "studentName" },
-  { name: "Mô tả học viên", key: "studentDescription" },
-  { name: "Ngày ghi danh", key: "enrollmentDate" },
-  { name: "Số điện thoại", key: "phoneNumber" },
-  { name: "Ngày sinh", key: "dateOfBirth" },
-  { name: "Thao tác", key: "action" }, // Nút sửa, xoá...
-];
-
+    { name: "No.", key: "index" }, // Serial number
+    { name: "Select Enrollment", key: "select", align: "start" },
+    { name: "Avatar", key: "avatar" },
+    { name: "Student Name", key: "studentName" },
+    { name: "Student Description", key: "studentDescription" },
+    { name: "Enrollment Date", key: "enrollmentDate" },
+    { name: "Phone Number", key: "phoneNumber" },
+    { name: "Date of Birth", key: "dateOfBirth" },
+    { name: "Actions", key: "action" }, // Edit, delete...
+  ];
 
   const deleteAction = async (id: number) => {
     setLoading(true);
@@ -224,10 +223,10 @@ export default function EnrollmentTable({
           currentEnrollment.id
         );
         if (!response.data) {
-          toast.error(`Failed to create lesson`);
+          toast.error(`Failed to update enrollment`);
         }
 
-        toast.success(`lesson update successfully`);
+        toast.success(`Enrollment update successfully`);
         onOpenChange();
         router.push(`/courses/${courseCode}`);
       }
@@ -307,15 +306,14 @@ export default function EnrollmentTable({
     }
 
     const formattedData = data.map((enrollment, index) => ({
-    Số_thứ_tự: index + 1,
-    "Mã học viên": enrollment.student?.code || "",
-    "Tên học viên": enrollment.student?.name || "Không rõ",
-    "Ngày ghi danh": DateToStringWithoutTime(enrollment.enrollmentDate),
-    "Ngày sinh": DateToStringWithoutTime(
+    "No.": index + 1,
+    "Student Code": enrollment.student?.code || "",
+    "Student Name": enrollment.student?.name || "Unknown",
+    "Enrollment Date": DateToStringWithoutTime(enrollment.enrollmentDate),
+    "Date of Birth": DateToStringWithoutTime(
       new Date(enrollment.student?.dateOfBirth || "")
     ),
   }));
-
 
     const worksheet = XLSX.utils.json_to_sheet(formattedData);
     const workbook = XLSX.utils.book_new();
@@ -355,7 +353,7 @@ export default function EnrollmentTable({
             }`}
           disabled={selectedEnrollments.length === 0}
         >
-          Tạo lớp
+          Create Class
         </button>
       </div>
       <TableWrapper<IndexedEnrollmentDTO>
@@ -447,8 +445,6 @@ export default function EnrollmentTable({
                         }
                         onOpen={handleDropdownFocus}
                       />
-
-
 
                       <DatePicker
                         defaultValue={

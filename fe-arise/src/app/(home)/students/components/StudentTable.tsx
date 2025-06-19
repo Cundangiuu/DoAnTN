@@ -32,12 +32,12 @@ const StudentTable: React.FC = () => {
   const data = students;
 
   const columns = [
-    { name: "Tên", key: "name", align: "start" },
-    { name: "Mã", key: "code" },
-    { name: "Biệt danh", key: "nickname" },
-    { name: "Số điện thoại", key: "phoneNumber" },
-    { name: "Ngày sinh", key: "dateOfBirth" },
-    { name: "Action", key: "Action" },
+    { name: "Name", key: "name", align: "start" },
+    { name: "Code", key: "code" },
+    { name: "Nickname", key: "nickname" },
+    { name: "Phone Number", key: "phoneNumber" },
+    { name: "Date of Birth", key: "dateOfBirth" },
+    { name: "Actions", key: "Action" },
   ];
 
   const renderCell = (key: string, data: StudentDTO) => {

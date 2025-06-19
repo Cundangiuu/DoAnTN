@@ -59,35 +59,35 @@ const InvoiceTable: React.FC = () => {
 
   const columns = [
     {
-      name: "Tên sinh viên",
+      name: "Student Name",
       key: "studentName",
       align: "start",
     },
     {
-      name: "Lớp đã đăng ký",
+      name: "Registered Class",
       key: "classCode",
       align: "start",
     },
-    { name: "Học phí thực tế", key: "tuitionOwed", align: "start" },
+    { name: "Actual Tuition", key: "tuitionOwed", align: "start" },
     {
-      name: "Giảm giá",
+      name: "Discount",
       key: "tuitionDiscount",
       align: "start",
     },
     {
-      name: "Công nợ",
+      name: "Debt",
       key: "tuitionOwedDiscount",
       align: "start",
     },
-    { name: "Thực thu", key: "amount", align: "start" },
-    { name: "Ngày thanh toán", key: "date", align: "start" },
+    { name: "Actual Collection", key: "amount", align: "start" },
+    { name: "Payment Date", key: "date", align: "start" },
     {
-      name: "Loại thanh toán",
+      name: "Payment Type",
       key: "paymentType",
       align: "start",
     },
-    { name: "Trạng thái hóa đơn", key: "invoiceStatus", align: "center" },
-    { name: "Thao tác", key: "action", align: "center" },
+    { name: "Invoice Status", key: "invoiceStatus", align: "center" },
+    { name: "Actions", key: "action", align: "center" },
   ];
 
   const renderCell = (key: string, data: InvoiceDTO) => {
@@ -158,8 +158,8 @@ const InvoiceTable: React.FC = () => {
               }
             >
               {data.invoiceStatus === InvoiceStatusConstants.NOT_PAID
-                ? "Thanh toán"
-                : "Hóa đơn"}
+                ? "Pay"
+                : "Invoice"}
             </Button>
           </div>
         );
@@ -168,10 +168,10 @@ const InvoiceTable: React.FC = () => {
 
   const translateInvoiceStatus = (status: string): string => {
     const translations: Record<string, string> = {
-      NOT_PAID: "Chưa thanh toán",
-      PARTIALLY_PAID: "Thanh toán một phần",
-      FULLY_PAID: "Đã thanh toán đầy đủ",
-      ALL: "Tất cả trạng thái",
+      NOT_PAID: "Not Paid",
+      PARTIALLY_PAID: "Partially Paid",
+      FULLY_PAID: "Fully Paid",
+      ALL: "All Statuses",
     };
     return translations[status] || status;
   };
@@ -190,7 +190,7 @@ const InvoiceTable: React.FC = () => {
 
   const filterOptions: FilterOptionType = [
     {
-      label: "Trạng Thái Hóa Đơn",
+      label: "Invoice Status",
       props: {
         disallowEmptySelection: true,
         selectedKeys: selection,
@@ -218,7 +218,7 @@ const InvoiceTable: React.FC = () => {
 
   const secondFilterOptions: FilterOptionType = [
     {
-      label: "Loại Thanh Toán",
+      label: "Payment Type",
       props: {
         selectedKeys: hasAvatarValue,
         selectionMode: "single",
@@ -237,9 +237,9 @@ const InvoiceTable: React.FC = () => {
         },
       },
       options: [
-        { key: "BOTH", label: "Cả Hai" },
-        { key: "CASH", label: "Tiền Mặt" },
-        { key: "BANK_TRANSFER", label: "Chuyển Khoản" },
+        { key: "BOTH", label: "Both" },
+        { key: "CASH", label: "Cash" },
+        { key: "BANK_TRANSFER", label: "Bank Transfer" },
       ],
     },
   ];
@@ -252,7 +252,7 @@ const InvoiceTable: React.FC = () => {
           .filter((key) => Object.values(InvoiceStatusConstants).includes(key))
       : [];
   
-    const paymentType: PaymentTypeConstants[] = filterParam
+    const paymentType: PaymentTypeConstants[] = hasAvatarParam
       ? hasAvatarParam
           .split(",")
           .map((key) => key.trim().toUpperCase() as PaymentTypeConstants)
@@ -273,33 +273,33 @@ const InvoiceTable: React.FC = () => {
     }
   
     const columnMapping: Record<string, string> = {
-      id: "Mã hoá đơn",
-      studentNickName: "Biệt danh học viên",
-      discount: "Thông tin giảm giá",
-      studentPhoneNumber: "Số điện thoại",
-      invoiceAttempt: "Lần tạo hoá đơn",
-      staffName: "Nhân viên tạo",
-      studentName: "Tên học viên",
-      studentCode: "Mã học viên",
-      classCode: "Mã lớp",
-      className: "Tên lớp",
-      tuitionOwed: "Học phí còn nợ",
-      tuitionCourseOwed: "Học phí khoá học còn nợ",
-      invoiceDiscount: "Chiết khấu hoá đơn",
-      amount: "Tổng tiền",
-      paymentType: "Hình thức thanh toán",
-      description: "Ghi chú",
-      invoiceStatus: "Trạng thái hoá đơn",
-      createdBy: "Người tạo",
-      createdAt: "Ngày tạo",
-      updatedBy: "Người sửa cuối",
-      updatedAt: "Ngày sửa cuối",
-      tuitionDiscount: "Tổng giảm học phí",
-      tuitionOwedDiscount: "Công nợ",
-      startDate: "Ngày lớp bắt đầu",
+      id: "Invoice ID",
+      studentNickName: "Student Nickname",
+      discount: "Discount Information",
+      studentPhoneNumber: "Phone Number",
+      invoiceAttempt: "Invoice Attempt",
+      staffName: "Staff Name",
+      studentName: "Student Name",
+      studentCode: "Student Code",
+      classCode: "Class Code",
+      className: "Class Name",
+      tuitionOwed: "Tuition Owed",
+      tuitionCourseOwed: "Course Tuition Owed",
+      invoiceDiscount: "Invoice Discount",
+      amount: "Total Amount",
+      paymentType: "Payment Type",
+      description: "Description",
+      invoiceStatus: "Invoice Status",
+      createdBy: "Created By",
+      createdAt: "Created At",
+      updatedBy: "Last Updated By",
+      updatedAt: "Last Updated At",
+      tuitionDiscount: "Total Tuition Discount",
+      tuitionOwedDiscount: "Debt",
+      startDate: "Class Start Date",
     };
   
-    const dataWithVietnameseHeaders = (formattedData.data as InvoiceDTO[]).map((item) => {
+    const dataWithEnglishHeaders = (formattedData.data as InvoiceDTO[]).map((item) => {
       const newItem: Record<string, string | number> = {};
     
       Object.entries(item).forEach(([key, value]) => {
@@ -312,7 +312,7 @@ const InvoiceTable: React.FC = () => {
         if (key === "discount") {
           const discount = value as DiscountDTO | null;
           if (discount && discount.description && discount.amount !== null) {
-            newItem[translatedKey] = `${discount.description} (${new Intl.NumberFormat("vi-VN").format(discount.amount)} VND)`;
+            newItem[translatedKey] = `${discount.description} (${new Intl.NumberFormat("en-US").format(discount.amount)} VND)`;
           } else {
             newItem[translatedKey] = ""; 
           }
@@ -320,12 +320,12 @@ const InvoiceTable: React.FC = () => {
         else if (key === "invoiceStatus") {
           newItem[translatedKey] = translateInvoiceStatus(value as string);
         } else if(key === "paymentType") {
-          newItem[translatedKey] = value === "CASH" ? "Tiền mặt" : "Chuyển khoản";
+          newItem[translatedKey] = value === "CASH" ? "Cash" : "Bank Transfer";
         }
         else if (key === "createdAt" || key === "updatedAt" || key === "startDate") {
           const date = new Date(value as string);
-          const vnTime = new Date(date.getTime());
-          newItem[translatedKey] = vnTime.toLocaleString("vi-VN", {
+          const enTime = new Date(date.getTime());
+          newItem[translatedKey] = enTime.toLocaleString("en-US", {
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
@@ -355,16 +355,14 @@ const InvoiceTable: React.FC = () => {
       return newItem;
     });
     
-    
-    
   
-    const worksheet = XLSX.utils.json_to_sheet(dataWithVietnameseHeaders);
+    const worksheet = XLSX.utils.json_to_sheet(dataWithEnglishHeaders);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Hóa đơn");
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Invoices");
   
-    XLSX.writeFile(workbook, "HoaDon.xlsx");
+    XLSX.writeFile(workbook, "Invoices.xlsx");
   };
-  
+
   return (
     <TableWrapper<InvoiceDTO>
       rest={rest}

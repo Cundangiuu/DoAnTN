@@ -2,7 +2,7 @@
 
 import { Pageable } from "@/dtos/base";
 import { ClassDTO } from "@/dtos/classes/ClassDTO";
-import { classQuery } from "@/services/ClassService";
+import { classQuery} from "@/services/ClassService";
 import { DateToStringWithoutTime } from "@/utils/DateUtils";
 import { redirect, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
@@ -16,7 +16,7 @@ import {
 export default function GeneralClassContextProvider({
   classes,
   children,
-}: Readonly<{ children: React.ReactNode, classes: Pageable<ClassDTO> }>) {
+}: Readonly<{ children: React.ReactNode; classes: Pageable<ClassDTO> }>) {
   const searchParams = useSearchParams();
   const path = usePathname();
   const router = useRouter();
@@ -32,13 +32,13 @@ export default function GeneralClassContextProvider({
     }
 
     if (!response.data) {
-      toast.error("Xuất dữ liệu thất bại. Vui lòng liên hệ quản trị viên.");
+      toast.error("Failed to export data. Please contact the administrator.");
       return;
     }
 
     const exportData = response.data.content;
     if (!exportData || exportData.length === 0) {
-      toast.error("Không có dữ liệu để xuất.");
+      toast.error("No data to export.");
       return;
     }
 
@@ -64,29 +64,29 @@ export default function GeneralClassContextProvider({
       const nextClassDay = classArise.classDays[nextClassDayIndex];
 
       return {
-        "STT": index + 1,
-        "Mã lớp": classArise.code,
-        "Tên lớp": classArise.name,
-        "Tên khóa học": classArise.course?.name ?? "Không có",
-        "Lịch học": `${classArise.schedules.map((s) => s.code).join(", ")}`,
-        "Giảng viên": classArise.staff
+        "No.": index + 1,
+        "Class Code": classArise.code,
+        "Class Name": classArise.name,
+        "Course Name": classArise.course?.name ?? "None",
+        "Schedule": `${classArise.schedules.map((s) => s.code).join(", ")}`,
+        "Instructor": classArise.staff
           ? `${classArise.staff?.firstName} ${classArise.staff?.lastName}`
-          : "Không có",
-        "Bài học tiếp theo": nextClassDay?.lesson
+          : "None",
+        "Next Lesson": nextClassDay?.lesson
           ? nextClassDay.lesson.description
-          : "Không có",
-        "Giảng viên tiếp theo": nextClassDay?.teacher
+          : "None",
+        "Next Instructor": nextClassDay?.teacher
           ? `${nextClassDay.teacher.firstName} ${nextClassDay.teacher.lastName}`
-          : "Không có",
-        "Số lượng bài học": `${nextClassDayIndex === -1 ? 0 : nextClassDayIndex}/${classArise.classDays.length
+          : "None",
+        "Number of Lessons": `${nextClassDayIndex === -1 ? 0 : nextClassDayIndex}/${classArise.classDays.length
           }`,
-        "Số lượng học sinh": classArise.students.length,
-        "Ngày bắt đầu": classArise.startDate
+        "Number of Students": classArise.students.length,
+        "Start Date": classArise.startDate
           ? DateToStringWithoutTime(new Date(classArise.startDate))
-          : "Không có",
-        "Địa điểm tiếp theo": nextClassDay?.location
+          : "None",
+        "Next Location": nextClassDay?.location
           ? `${nextClassDay.location.branch} - ${nextClassDay.location.room}`
-          : "Không có",
+          : "None",
       };
     });
 
@@ -111,7 +111,8 @@ export default function GeneralClassContextProvider({
   );
 
   return (
-    <div className="relative"> {/* Để tạo vị trí cho lớp phủ */}
+    <div className="relative">
+      {/* To create a position for the overlay */}
       <GeneralClassContext.Provider value={initValue}>
         {children}
       </GeneralClassContext.Provider>

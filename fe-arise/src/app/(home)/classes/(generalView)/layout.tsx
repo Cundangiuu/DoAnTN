@@ -14,7 +14,7 @@ export default async function Layout({
             Chưa xác thực
           </h1>
           <p className="text-gray-700">
-            Vui lòng đăng nhập để truy cập trang này.
+            Please login to access this page.  
           </p>
         </div>
       </div>

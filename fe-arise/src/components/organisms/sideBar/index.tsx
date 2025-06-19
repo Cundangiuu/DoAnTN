@@ -19,29 +19,29 @@ export default function SideBar({
     {
       icon: MdDashboard,
       href: "/#",
-      children: "Trang Chủ",
+      children: "Dashboard",
     },
     {
       icon: FaKeyboard,
       href: "/classes?status=ON_GOING&view=my-classes",
-      children: "Lớp Học",
+      children: "Classes",
     },
     {
       icon: IoIosBook,
       href: "/courses",
-      children: "Khóa Học",
+      children: "Courses",
     },
     {
       icon: PiStudentFill,
       href: "/students",
-      children: "Học Sinh",
+      children: "Students",
     },
     ...(isAdmin || isAccountant
       ? [
           {
             icon: RiMoneyDollarBoxLine,
             href: "/accounting",
-            children: "Kế Toán",
+            children: "Accounting",
           },
         ]
       : []),
@@ -50,7 +50,7 @@ export default function SideBar({
           {
             icon: IoMdSettings,
             href: "/settings",
-            children: "Quản Trị",
+            children: "Admin Portal",
           },
         ]
       : []),

@@ -41,34 +41,34 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
         </div>
         <div className="text-right">
           <div className="text-xs font-semibold">
-            TRUNG TÂM NGOẠI NGỮ TRÍ VIỆT - CƠ SỞ 2
+            ARISE FOREIGN LANGUAGE CENTER
           </div>
           <div className="text-xs">
-            Hoàng Diệu, Phường Trảng Bàng, TX Trảng Bàng, Tây Ninh
+            Ha Huy Tap, Thanh Pho Buon Ma Thuot, Dak Lak
           </div>
         </div>
       </div>
 
       <div className="text-center mt-4 mb-4">
-        <h1 className="text-xl font-bold">PHIẾU THÔNG BÁO KẾT QUẢ</h1>
+        <h1 className="text-xl font-bold">RESULTS NOTIFICATION FORM</h1>
         <h2 className="text-lg font-bold">
           CLASS REPORT - {grade.classArise.course.name.toUpperCase()} {testType} TEST RESULT
         </h2>
         <div className="text-sm mt-1">
-          Ngày: {DateToStringWithoutTime(new Date())}
+          Date: {DateToStringWithoutTime(new Date())}
         </div>
       </div>
 
       <div className="mt-2 pl-4">
         <div className="flex">
-          <div className="w-24 font-semibold text-xs">Học viên:</div>
+          <div className="w-24 font-semibold text-xs">Student:</div>
           <div className="text-xs">
             {grade.student.name}{" "}
             {grade.student.nickname ? `(${grade.student.nickname})` : ""}
           </div>
         </div>
         <div className="flex">
-          <div className="w-24 font-semibold text-xs">Lớp:</div>
+          <div className="w-24 font-semibold text-xs">Class:</div>
           <div className="text-xs">
             {grade.classArise.name} - {grade.classArise.code}
           </div>
@@ -83,7 +83,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                 <>
                   <th className="border-solid border  border-gray-400 text-center px-0.5 py-0">
                     <p className="mb-3">
-                      Nghe (Listening)
+                      Listening
                       {testType === TypeOfTest.MIDTERM &&
                         `(${formula.midtermListeningMaxScore})`}
                       {testType === TypeOfTest.FINAL &&
@@ -92,7 +92,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                   </th>
                   <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                     <p className="mb-3">
-                      Nói (Speaking)
+                      Speaking
                       {testType === TypeOfTest.MIDTERM &&
                         `(${formula.midtermSpeakingMaxScore})`}
                       {testType === TypeOfTest.FINAL &&
@@ -102,7 +102,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                   {isReadingWriting && (
                     <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                       <p className="mb-3">
-                        Đọc-Viết (Reading-Writing)
+                        Reading-Writing
                         {testType === TypeOfTest.MIDTERM &&
                           `(${Math.max(
                             formula.midtermReadingMaxScore,
@@ -120,7 +120,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                     <>
                       <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                         <p className="mb-3">
-                          Đọc (Reading)
+                          Reading
                           {testType === TypeOfTest.MIDTERM &&
                             `(${formula.midtermReadingMaxScore})`}
                           {testType === TypeOfTest.FINAL &&
@@ -129,7 +129,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                       </th>
                       <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                         <p className="mb-3">
-                          Viết (Writing)
+                          Writing
                           {testType === TypeOfTest.MIDTERM &&
                             `(${formula.midtermWritingMaxScore})`}
                           {testType === TypeOfTest.FINAL &&
@@ -141,11 +141,11 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                   {!containsEnglishTest(grade.classArise.course.name) && (
                     <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                       <p className="mb-3">
-                        Tổng điểm{" "}
+                        Total Score{" "}
                         {testType === TypeOfTest.MIDTERM
-                          ? "giữa khoá"
-                          : "cuối khoá"}
-                        (
+                          ? "Midterm"
+                          : "Final"}
+                         (
                         {testType
                           .toString()
                           .toLowerCase()
@@ -160,10 +160,10 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                   {containsEnglishTest(grade.classArise.course.name) ? (
                     <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                       <p className="mb-3">
-                        Điểm{" "}
+                        Score{" "}
                         {testType === TypeOfTest.MIDTERM
-                          ? "giữa khoá "
-                          : "cuối khoá "}
+                          ? "Midterm"
+                          : "Final"}
                         (
                         {testType
                           .toString()
@@ -177,10 +177,10 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                   ) : (
                     <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                       <p className="mb-3">
-                        Điểm{" "}
+                        Score{" "}
                         {testType === TypeOfTest.MIDTERM
-                          ? "giữa khoá"
-                          : "cuối khoá"}
+                          ? "Midterm"
+                          : "Final"}
                         (
                         {testType
                           .toString()
@@ -198,39 +198,39 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                 <>
                   <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                     <p className="mb-3">
-                      Tổng điểm giữa khoá (Midterm Test Score) ({midtermMaxSum})
+                      Total Midterm Score (Midterm Test Score) ({midtermMaxSum})
                     </p>
                   </th>
                   <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                     <p className="mb-3">
-                      Tổng điểm cuối khoá (Final Test Score) ({finalMaxSum})
+                      Total Final Score (Final Test Score) ({finalMaxSum})
                     </p>
                   </th>
                   <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                     <p className="mb-3">
-                      Tỷ lệ giữa khoá (Midterm Percentage) (
+                      Midterm Percentage (
                       {formula.midtermGradeWeight * 100}%)
                     </p>
                   </th>
                   <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                     <p className="mb-3">
-                      Tỷ lệ cuối khoá (Final Percentage) (
+                      Final Percentage (
                       {formula.finalGradeWeight * 100}%)
                     </p>
                   </th>
                   <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
                     <p className="mb-3">
-                      Điểm thưởng khoá học (Course Bonus) (
+                      Course Bonus (
                       {formula.bonusGradeWeight * 100}%)
                     </p>
                   </th>
                   <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
-                    <p className="mb-3">Tỷ lệ khoá học (Course Bonus) (100%)</p>
+                    <p className="mb-3">Course Percentage (100%)</p>
                   </th>
                 </>
               )}
               <th className="border-solid border border-gray-400 text-center px-0.5 py-0">
-                <p className="mb-3">Xếp loại (Grade)</p>
+                <p className="mb-3">Grade</p>
               </th>
             </tr>
           </thead>
@@ -353,10 +353,10 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
             <thead>
               <tr className="bg-[#DCE6F1]">
                 <th className="border-solid border border-gray-400 text-center w-[30%] text-sm px-0.5 py-0">
-                  <p className="mb-3">TIÊU CHÍ / CRITERIA</p>
+                  <p className="mb-3">CRITERIA</p>
                 </th>
                 <th className="border-solid border border-gray-400 text-center w-[70%] text-sm px-0.5 py-0">
-                  <p className="mb-3">Nhận xét</p>
+                  <p className="mb-3">Comments</p>
                 </th>
               </tr>
             </thead>
@@ -364,7 +364,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
               <tr>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
                   <p className="mb-3">
-                    Thái độ học tập trên lớp / Attitude in class
+                    Attitude in class
                   </p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
@@ -374,7 +374,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
               <tr>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
                   <p className="mb-3">
-                    Chuyên cần làm bài tập về nhà / Homework Completion
+                    Homework Completion
                   </p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
@@ -387,13 +387,13 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
                   className="border-solid border border-gray-400 px-0.5 py-0"
                 >
                   <p className="mb-3">
-                    Kỹ năng thực hành ngôn ngữ / Language elements and skills
+                   Language elements and skills
                   </p>
                 </td>
               </tr>
               <tr>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
-                  <p className="mb-3">Nghe / Listening</p>
+                  <p className="mb-3">Listening</p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
                   <p className="mb-3">{grade.criteria.listening}</p>
@@ -401,7 +401,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
               </tr>
               <tr>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
-                  <p className="mb-3">Nói / Speaking</p>
+                  <p className="mb-3">Speaking</p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
                   <p className="mb-3">{grade.criteria.speaking}</p>
@@ -409,7 +409,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
               </tr>
               <tr>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
-                  <p className="mb-3">Đọc / Reading</p>
+                  <p className="mb-3">Reading</p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
                   <p className="mb-3">{grade.criteria.reading}</p>
@@ -417,7 +417,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
               </tr>
               <tr>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
-                  <p className="mb-3">Viết / Writing</p>
+                  <p className="mb-3">Writing</p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
                   <p className="mb-3">{grade.criteria.writing}</p>
@@ -425,7 +425,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
               </tr>
               <tr>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
-                  <p className="mb-3">Từ vựng / Vocabulary</p>
+                  <p className="mb-3">Vocabulary</p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
                   <p className="mb-3">{grade.criteria.vocabulary}</p>
@@ -433,7 +433,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
               </tr>
               <tr>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
-                  <p className="mb-3">Ngữ pháp / Grammar</p>
+                  <p className="mb-3">Grammar</p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
                   <p className="mb-3">{grade.criteria.grammar}</p>
@@ -442,7 +442,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
               <tr>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
                   <p className="mb-3">
-                    Tiến bộ trong kỳ học / Progress during the term
+                    Progress during the term
                   </p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
@@ -452,7 +452,7 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
               <tr>
                 <td className="border-solid border border-gray-400 align-top px-0.5 py-0">
                   <p className="mb-3">
-                    Nhận xét khác / Đề xuất Other comments / Suggestions
+                    Other comments / Suggestions
                   </p>
                 </td>
                 <td className="border-solid border border-gray-400 px-0.5 py-0">
@@ -476,28 +476,26 @@ const ReportContent = ({ grade }: { grade: GradeDTO }) => {
       <div className="flex justify-between mt-2">
         <div className="flex flex-col items-center w-full">
           <div className="font-semibold text-center leading-tight">
-            <div>Giáo viên giảng dạy</div>
             <div>Teacher in charge</div>
           </div>
           <div className="flex items-center justify-center gap-1 mt-1">
             <div className="relative">
               <FaCheck className="text-red-600" />
             </div>
-            <div>Đã duyệt</div>
+            <div>Approved</div>
           </div>
         </div>
         <div className="flex flex-col items-center w-full">
           <div className="font-semibold text-center leading-tight">
-            <div>Phòng đào tạo</div>
-            <div>Training dep</div>
+            <div>Training department</div>
           </div>
           <div className="flex items-center gap-1 mt-1">
             <div className="relative">
               <FaCheck className="text-red-600" />
             </div>
-            <div>Đã duyệt</div>
+            <div>Approved</div>
           </div>
-          <div className="font-semibold mt-1">Phạm Thị Hoa Lài</div>
+          <div className="font-semibold mt-1">Pham Thi Hoa Lai</div>
         </div>
       </div>
     </div>

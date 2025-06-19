@@ -19,11 +19,10 @@ const AttendanceTable = ({ studentCode, isReadonly }: Props) => {
   const [data, setData] = useState<AbsenceDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const columns = [
-  { name: "Ngày học", key: "classDate" },
-  { name: "Lớp học", key: "classCode" },
-  { name: "Điểm danh", key: "checkAbsent" },
-];
-
+    { name: "Class Date", key: "classDate" },
+    { name: "Class Code", key: "classCode" },
+    { name: "Attendance", key: "checkAbsent" },
+  ];
 
   useEffect(() => {
     const getAbsence = async () => {

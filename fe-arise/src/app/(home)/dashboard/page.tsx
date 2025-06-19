@@ -9,25 +9,25 @@ export default async function DashBoard() {
 
   return (
     <div className="w-full h-full flex flex-col p-3 bg-[#f0f4f8]">
-      <ContentHeader title="Trang Chủ" />
+      <ContentHeader title="Dashboard" />
       <div className="min-h-screen p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Thẻ Tổng Số Học Sinh */}
+          {/* Total Students Card */}
           <div className="bg-white shadow rounded-lg p-6 hover:shadow-md transition duration-300 border-l-4 border-[#2255a6] relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full bg-[#2255a6] opacity-10"></div> {/* Thêm lớp phủ màu xanh */}
+            <div className="absolute top-0 left-0 w-full h-full bg-[#2255a6] opacity-10"></div> {/* Add blue overlay */}
             <h2 className="text-lg font-semibold text-gray-700 mb-2 z-10 relative">
-              Tổng Số Học Sinh
+              Total Students
             </h2>
             <p className="text-3xl font-bold text-[#2255a6] mt-2 z-10 relative">
               {student?.data || 0}
             </p>
           </div>
 
-          {/* Thẻ Số Lượng Lớp Học Đang Hoạt Động */}
+          {/* Active Classes Card */}
           <div className="bg-white shadow rounded-lg p-6 hover:shadow-md transition duration-300 border-l-4 border-[#2255a6] relative overflow-hidden">
-             <div className="absolute top-0 left-0 w-full h-full bg-[#2255a6] opacity-10"></div> {/* Thêm lớp phủ màu xanh */}
+             <div className="absolute top-0 left-0 w-full h-full bg-[#2255a6] opacity-10"></div> {/* Add blue overlay */}
             <h2 className="text-lg font-semibold text-gray-700 mb-2 z-10 relative">
-              Lớp Học Đang Hoạt Động
+              Active Classes
             </h2>
             <p className="text-3xl font-bold text-[#2255a6] mt-2 z-10 relative">
               {totalClass?.data || 0}
@@ -35,26 +35,26 @@ export default async function DashBoard() {
           </div>
         </div>
 
-        {/* Các Thẻ Chức Năng */}
+        {/* Feature Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card
-            title={"Lớp Học"}
+            title={"Classes"}
             description={
-              "Khám phá sự đa dạng của các lớp học đang hoạt động, phù hợp với các cấp độ và sở thích khác nhau. Theo dõi các lớp học đang diễn ra và sắp tới được thiết kế để nâng cao khả năng học tập và tương tác."
+              "Explore our diverse range of active classes, tailored to various levels and interests. Track ongoing and upcoming classes designed to enhance learning and engagement."
             }
             url={"/classes"}
           />
           <Card
-            title={"Khóa Học"}
+            title={"Courses"}
             description={
-              "Đi sâu vào bộ sưu tập các khóa học được tuyển chọn của chúng tôi, bao gồm các chủ đề và lĩnh vực đa dạng. Cho dù bạn là người mới bắt đầu hay chuyên gia, hãy tìm khóa học phù hợp để mở rộng kiến thức của bạn."
+              "Delve into our curated collection of courses, covering diverse subjects and disciplines. Whether you're a beginner or an expert, find the right course to expand your knowledge."
             }
             url={"/courses"}
           />
           <Card
-            title={"Học Sinh"}
+            title={"Students"}
             description={
-              "Khám phá những thông tin chi tiết về cộng đồng học sinh của chúng tôi, bao gồm số lượng đăng ký, sự tham gia và thành tích. Tìm hiểu cách học sinh của chúng tôi đang đạt được những bước tiến trong hành trình học tập của họ."
+              "Discover insights into our student community, including enrollment numbers, engagement, and achievements. Learn how our students are making strides in their learning journeys."
             }
             url={"/students"}
           />

@@ -47,7 +47,7 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
   const [schedules, setSchedules] = useState<ScheduleDTO[]>();
   const [formSubmitting, setFormSubmitting] = useState(false);
 
-  // Lấy dữ liệu cho dropdown
+  // Fetch data for dropdowns
   useEffect(() => {
     const fetchData = async () => {
       const coursesResponse = await CourseService.getAllCourse();
@@ -62,7 +62,7 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
     fetchData();
   }, []);
 
-  // Cấu hình biểu mẫu
+  // Configure the form
   const { handleSubmit, control } = useForm<StaffRequestDTO>({
     defaultValues: {
       firstName: staff?.firstName,
@@ -77,7 +77,7 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
     },
   });
 
-  // Xử lý khi submit biểu mẫu
+  // Handle form submission
   const onSubmit: SubmitHandler<StaffRequestDTO> = async (staffData) => {
     setFormSubmitting(true);
     const formData = new FormData();
@@ -110,27 +110,27 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
         : StaffService.createStaff(formData));
 
       if (!response.data) {
-        toast.error(`Không thể ${staff ? "cập nhật" : "tạo"} nhân viên`);
+        toast.error(`Could not ${staff ? "update" : "create"} staff`);
       } else {
-        toast.success(`Nhân viên đã được ${staff ? "cập nhật" : "tạo"} thành công!`);
+        toast.success(`Staff has been ${staff ? "updated" : "created"} successfully!`);
         router.push(`/settings/staffs/${response.data.id}`);
       }
     } catch (error) {
-      console.error("Lỗi khi gửi biểu mẫu: ", error);
-      toast.error(`Không thể ${staff ? "cập nhật" : "tạo"} nhân viên`);
+      console.error("Error submitting form: ", error);
+      toast.error(`Could not ${staff ? "update" : "create"} staff`);
     } finally {
       setFormSubmitting(false);
     }
   };
 
-  // Xử lý tải lên avatar
+  // Handle avatar upload
   const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const avatar = e.target.files?.[0];
     setAvatarUploading(true);
     if (avatar) {
       const maxFileSize = 10 * 1024 * 1024;
       if (avatar.size > maxFileSize) {
-        toast.error("Kích thước file vượt quá giới hạn 5MB.");
+        toast.error("File size exceeds the 5MB limit.");
         return;
       }
 
@@ -153,7 +153,7 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* Nút hành động */}
+      {/* Action Buttons */}
       <div className="flex gap-3 my-5 justify-end">
         {!isEdit && !isNew ? (
           <EditButton href={`/settings/staffs/${(staff as StaffDTO)?.id}/edit`} />
@@ -164,14 +164,14 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
           <DeleteActionButton
             id={staff.id}
             action={StaffService.deleteStaff}
-            objectName="Nhân viên"
+            objectName="Staff"
             afterDelete={() => router.push("/settings/staffs")}
           />
         )}
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        {/* Khu vực ảnh đại diện */}
+        {/* Avatar Area */}
         <div className="row-span-3 flex flex-col justify-start gap-3 items-center">
           {avatar ? (
             <Avatar src={URL.createObjectURL(avatar)} className="h-[80px] w-[80px]" />
@@ -200,26 +200,26 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
             isDisabled={(!isNew && !isEdit) || avatarUploading}
             onPress={() => fileInputRef.current?.click()}
           >
-            Tải ảnh đại diện
+            Upload Avatar
           </Button>
         </div>
 
-        {/* Họ */}
+        {/* First Name */}
         <TextInput
           name="firstName"
           control={control}
           isReadOnly={isReadOnly}
-          label="Họ"
-          placeholder="Nhập họ"
+          label="First Name"
+          placeholder="Enter first name"
         />
 
-        {/* Tên */}
+        {/* Last Name */}
         <TextInput
           name="lastName"
           control={control}
           isReadOnly={isReadOnly}
-          label="Tên"
-          placeholder="Nhập tên"
+          label="Last Name"
+          placeholder="Enter last name"
         />
 
         {/* Email */}
@@ -229,47 +229,47 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
           required
           type="email"
           isReadOnly={isReadOnly}
-          label="Địa chỉ Email"
-          placeholder="Nhập email"
+          label="Email Address"
+          placeholder="Enter email"
         />
 
-        {/* Số điện thoại */}
+        {/* Phone Number */}
         <TextInput
           name="phoneNumber"
           control={control}
           type="tel"
           isReadOnly={isReadOnly}
-          label="Số điện thoại"
-          placeholder="Nhập số điện thoại"
+          label="Phone Number"
+          placeholder="Enter phone number"
         />
 
-        {/* Giờ dạy trong tuần */}
+        {/* Weekly Teaching Hours */}
         <TextInput
           name="weeklyHours"
           control={control}
           type="text"
-          rules={{ pattern: { value: /^[1-9]\d*$/, message: "Phải là số nguyên" } }}
+          rules={{ pattern: { value: /^[1-9]\d*$/, message: "Must be an integer" } }}
           isReadOnly={isReadOnly}
-          label="Số giờ dạy / tuần"
-          placeholder="Nhập số giờ"
+          label="Weekly Teaching Hours"
+          placeholder="Enter hours"
         />
 
-        {/* Mức lương */}
+        {/* Salary Rate */}
         <TextInput
           name="rates"
           control={control}
           type="text"
-          rules={{ pattern: { value: /^[1-9]\d*$/, message: "Phải là số nguyên" } }}
+          rules={{ pattern: { value: /^[1-9]\d*$/, message: "Must be an integer" } }}
           isReadOnly={isReadOnly}
-          label="Mức lương"
-          placeholder="Nhập mức lương"
+          label="Salary Rate"
+          placeholder="Enter salary rate"
         />
 
-        {/* Vai trò */}
+        {/* Role */}
         <SelectInput
           control={control}
           name="roleIds"
-          label="Vai trò"
+          label="Role"
           defaultSelectedKey={staff?.roles.map((role) => role.id.toString())}
           required
           options={
@@ -284,14 +284,14 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
           }
           multiple
           isDisable={isReadOnly}
-          placeholder="Chọn vai trò"
+          placeholder="Select role"
         />
 
-        {/* Môn dạy */}
+        {/* Courses */}
         <SelectInput
           control={control}
           name="courseIds"
-          label="Chuyên môn"
+          label="Expertise"
           defaultSelectedKey={staff?.courses.map((course) => course.id.toString())}
           options={
             courses?.map((course) => ({
@@ -301,20 +301,20 @@ const Form: React.FC<Readonly<Props>> = ({ staff }) => {
           }
           multiple
           isDisable={isReadOnly}
-          placeholder="Chọn môn chuyên môn"
+          placeholder="Select expertise"
         />
 
-        {/* Lịch dạy */}
+        {/* Schedule */}
         <SelectInput
           control={control}
           name="scheduleIds"
-          label="Lịch dạy"
+          label="Schedule"
           defaultSelectedKey={staff?.schedules.map((schedule) =>
             schedule.id.toString()
           )}
           multiple
           isDisable={isReadOnly}
-          placeholder="Chọn lịch dạy"
+          placeholder="Select schedule"
           options={
             schedules?.map((schedule) => ({
               key: schedule.id,

@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
-    const filePath = searchParams.get("filePath");
+    const filePath = searchParams.get("filePath")?.replace(/\\/g, "/");
 
     if (filePath) {
         if (filePath.startsWith("http")) {

@@ -17,10 +17,10 @@ const GradeTable = ({ studentId }: Props) => {
 
   const columns = useMemo(
   () => [
-    { name: "Lớp học", key: "id" },
-    { name: "Giữa kỳ", key: "midtermGrade" },
-    { name: "Cuối kỳ", key: "finalGrade" },
-    { name: "Kết quả môn học", key: "resultGrade" },
+    { name: "Class", key: "id" },
+    { name: "Midterm Grade", key: "midtermGrade" },
+    { name: "Final Grade", key: "finalGrade" },
+    { name: "Course Result", key: "resultGrade" },
   ],
   []
 );

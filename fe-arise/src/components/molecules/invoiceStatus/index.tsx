@@ -10,13 +10,13 @@ export default function InvoiceStatus({
 
   if (data.invoiceStatus === InvoiceStatusConstants.FULLY_PAID) {
     statusClass = "bg-green-100 text-green-800";
-    statusLabel = "Đã Thanh Toán Đầy Đủ";
+    statusLabel = "Fully Paid";
   } else if (data.invoiceStatus === InvoiceStatusConstants.PARTIALLY_PAID) {
     statusClass = "bg-yellow-100 text-yellow-800";
-    statusLabel = "Thanh Toán Một Phần";
+    statusLabel = "Partially Paid";
   } else if (data.invoiceStatus === InvoiceStatusConstants.NOT_PAID) {
     statusClass = "bg-red-100 text-red-800";
-    statusLabel = "Chưa Thanh Toán";
+    statusLabel = "Not Paid";
   }
 
   return href ? (

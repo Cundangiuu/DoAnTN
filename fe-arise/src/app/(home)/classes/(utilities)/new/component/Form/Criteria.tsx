@@ -1,3 +1,5 @@
+"use client";
+
 import { CriteriaRequestDTO } from "@/dtos/grade/CriteriaRequestDTO";
 import {
   GradeRequestDTO,
@@ -90,12 +92,12 @@ const Criteria = ({
           {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Chỉnh sửa tiêu chí
+                Edit Criteria
               </ModalHeader>
               <ModalBody className="max-h-[80vh] overflow-y-scroll">
-                <h1 className="font-bold">Thái độ học tập</h1>
+                <h1 className="font-bold">Learning Attitude</h1>
                 <Select
-                  label="Thái độ học tập trên lớp"
+                  label="Attitude in Class"
                   labelPlacement="outside"
                   selectedKeys={[criteria.attitude]}
                   onSelectionChange={(keys) =>
@@ -105,25 +107,25 @@ const Criteria = ({
                     }))
                   }
                 >
-                  <SelectItem key="Tích cực tham gia các hoạt động trên lớp">
-                    Tích cực tham gia các hoạt động trên lớp
+                  <SelectItem key="Actively participates in class activities">
+                    Actively participates in class activities
                   </SelectItem>
-                  <SelectItem key="Bình thường cần sôi nổi hơn">
-                    Bình thường cần sôi nổi hơn
+                  <SelectItem key="Normal, needs to be more active">
+                    Normal, needs to be more active
                   </SelectItem>
-                  <SelectItem key="Hiếm khi phát biểu hoặc tham gia vào hoạt động. Cần tích cực hơn">
-                    Hiếm khi phát biểu hoặc tham gia vào hoạt động. Cần tích cực
-                    hơn
+                  <SelectItem key="Rarely speaks or participates in activities. Needs to be more active">
+                    Rarely speaks or participates in activities. Needs to be
+                    more active
                   </SelectItem>
-                  <SelectItem key="Dễ mất tập trung">
-                    Dễ mất tập trung
+                  <SelectItem key="Easily distracted">
+                    Easily distracted
                   </SelectItem>
-                  <SelectItem key="Còn gây mất trật tự làm ảnh hưởng đến giờ học">
-                    Còn gây mất trật tự làm ảnh hưởng đến giờ học
+                  <SelectItem key="Disruptive and affects class time">
+                    Disruptive and affects class time
                   </SelectItem>
                 </Select>
                 <Select
-                  label="Chuyên cần làm bài tập về nhà"
+                  label="Homework Completion"
                   labelPlacement="outside"
                   selectedKeys={
                     criteria.homeworkCompletion
@@ -137,31 +139,31 @@ const Criteria = ({
                     }))
                   }
                 >
-                  <SelectItem key="Thường xuyên hoàn thành đầy đủ với chất lượng tốt">
-                    Thường xuyên hoàn thành đầy đủ với chất lượng tốt
+                  <SelectItem key="Frequently completes fully with good quality">
+                    Frequently completes fully with good quality
                   </SelectItem>
-                  <SelectItem key="Hoàn thành đầy đủ nhưng chất lượng chưa tốt. Cần làm bài cẩn thận hơn">
-                    Hoàn thành đầy đủ nhưng chất lượng chưa tốt. Cần làm bài cẩn
-                    thận hơn
+                  <SelectItem key="Completes fully but the quality is not good. Needs to do the homework more carefully">
+                    Completes fully but the quality is not good. Needs to do
+                    the homework more carefully
                   </SelectItem>
-                  <SelectItem key="Chưa hoàn thành đầy đủ. Cần chăm chỉ làm bài hơn">
-                    Chưa hoàn thành đầy đủ. Cần chăm chỉ làm bài hơn
+                  <SelectItem key="Does not complete fully. Needs to work harder on homework">
+                    Does not complete fully. Needs to work harder on homework
                   </SelectItem>
-                  <SelectItem key="Thường xuyên không làm bài tập được giao. Cần chăm chỉ làm bài hơn">
-                    Thường xuyên không làm bài tập đưuocj giao. Cần chăm chỉ làm
-                    bài hơn
+                  <SelectItem key="Often does not do assigned homework. Needs to work harder on homework">
+                    Often does not do assigned homework. Needs to work harder
+                    on homework
                   </SelectItem>
                 </Select>
 
-                <h1 className="font-bold">Kỹ năng thực hành ngôn ngữ</h1>
+                <h1 className="font-bold">Language Practice Skills</h1>
                 <div className="grid grid-cols-4 gap-2">
                   {[
-                    { label: "Kỹ năng nghe", key: "listening" },
-                    { label: "Kỹ năng nói", key: "speaking" },
-                    { label: "Kỹ năng đọc", key: "reading" },
-                    { label: "Kỹ năng viết", key: "writing" },
-                    { label: "Từ vựng", key: "vocabulary" },
-                    { label: "Ngữ pháp", key: "grammar" },
+                    { label: "Listening Skill", key: "listening" },
+                    { label: "Speaking Skill", key: "speaking" },
+                    { label: "Reading Skill", key: "reading" },
+                    { label: "Writing Skill", key: "writing" },
+                    { label: "Vocabulary", key: "vocabulary" },
+                    { label: "Grammar", key: "grammar" },
                   ].map(({ label, key }) => (
                     <Select
                       key={key}
@@ -175,18 +177,18 @@ const Criteria = ({
                         }))
                       }
                     >
-                      <SelectItem key="Giỏi">Giỏi</SelectItem>
-                      <SelectItem key="Khá có thể tốt hơn">
-                        Khá có thể tốt hơn
+                      <SelectItem key="Good">Good</SelectItem>
+                      <SelectItem key="Fair, could be better">
+                        Fair, could be better
                       </SelectItem>
-                      <SelectItem key="Cần cố gắng hơn">
-                        Cần cố gắng hơn
+                      <SelectItem key="Needs to try harder">
+                        Needs to try harder
                       </SelectItem>
                     </Select>
                   ))}
 
                   <Select
-                    label="Tiến bộ trong học kỳ"
+                    label="Progress in Semester"
                     labelPlacement="outside"
                     selectedKeys={criteria.progress ? [criteria.progress] : []}
                     onSelectionChange={(keys) =>
@@ -196,11 +198,11 @@ const Criteria = ({
                       }))
                     }
                   >
-                    <SelectItem key="Có tiến bộ trong kỳ">
-                      Có tiến bộ trong kỳ
+                    <SelectItem key="Made progress during the semester">
+                      Made progress during the semester
                     </SelectItem>
-                    <SelectItem key="Chưa tiến bộ trong kỳ">
-                      Chưa tiến bộ trong kỳ
+                    <SelectItem key="No progress during the semester">
+                      No progress during the semester
                     </SelectItem>
                   </Select>
                 </div>
@@ -209,161 +211,167 @@ const Criteria = ({
                   <h1 className="font-bold">Preset Comments</h1>
                   <div className="flex flex-col gap-4">
                     <Select
-                      label="Thái độ và thói quen học tập"
+                      label="Attitude and learning habits"
                       labelPlacement="outside"
                       onSelectionChange={(keys) => {
                         const selected = Array.from(keys)[0]?.toString() || "";
                         handlePresetSelect(selected);
                       }}
                     >
-                      <SelectItem key="Hạn chế phát biểu các nội dung không liên quan đến bài học.">
-                        Hạn chế phát biểu các nội dung không liên quan đến bài
-                        học.
+                      <SelectItem key="Limits expressing content unrelated to the lesson.">
+                        Limits expressing content unrelated to the lesson.
                       </SelectItem>
-                      <SelectItem key="Nên tập trung chú ý trong giờ học.">
-                        Nên tập trung chú ý trong giờ học.
+                      <SelectItem key="Should focus attention during class.">
+                        Should focus attention during class.
                       </SelectItem>
-                      <SelectItem key="Nhớ mang đầy đủ các dụng cụ học tập.">
-                        Nhớ mang đầy đủ các dụng cụ học tập.
+                      <SelectItem key="Remember to bring all learning tools.">
+                        Remember to bring all learning tools.
                       </SelectItem>
-                      <SelectItem key="Cần tham gia lớp học đúng giờ.">
-                        Cần tham gia lớp học đúng giờ.
+                      <SelectItem key="Need to attend class on time.">
+                        Need to attend class on time.
                       </SelectItem>
-                      <SelectItem key="Hạn chế sử dụng tiếng Việt trong giờ học.">
-                        Hạn chế sử dụng tiếng Việt trong giờ học.
+                      <SelectItem key="Limit the use of Vietnamese in class.">
+                        Limit the use of Vietnamese in class.
                       </SelectItem>
-                      <SelectItem key="Bạn nên tích cực phát biểu nhiều hơn.">
-                        Bạn nên tích cực phát biểu nhiều hơn.
+                      <SelectItem key="You should actively speak up more.">
+                        You should actively speak up more.
                       </SelectItem>
-                      <SelectItem key="Bạn khá nhút nhát, nên tập tính mạnh dạn đặt câu hỏi và phát biểu ý kiến.">
-                        Bạn khá nhút nhát, nên tập tính mạnh dạn đặt câu hỏi và
-                        phát biểu ý kiến.
+                      <SelectItem key="You are quite shy, so practice being bold to ask questions and express opinions.">
+                        You are quite shy, so practice being bold to ask
+                        questions and express opinions.
                       </SelectItem>
-                      <SelectItem key="Bạn dễ mất tập trung và hay quên từ vựng.">
-                        Bạn dễ mất tập trung và hay quên từ vựng.
+                      <SelectItem key="You are easily distracted and often forget vocabulary.">
+                        You are easily distracted and often forget vocabulary.
                       </SelectItem>
-                      <SelectItem key="Bạn còn hạn chế về việc ghi nhớ từ vựng và ngữ pháp do thiếu ghi chép, ôn tập cẩn thận.">
-                        Bạn còn hạn chế về việc ghi nhớ từ vựng và ngữ pháp do
-                        thiếu ghi chép, ôn tập cẩn thận.
+                      <SelectItem key="You are limited in memorizing vocabulary and grammar due to lack of careful note-taking and review.">
+                        You are limited in memorizing vocabulary and grammar due
+                        to lack of careful note-taking and review.
                       </SelectItem>
                     </Select>
 
                     <Select
-                      label="Kỹ năng và phương pháp học"
+                      label="Skills and learning methods"
                       labelPlacement="outside"
                       onSelectionChange={(keys) => {
                         const selected = Array.from(keys)[0]?.toString() || "";
                         handlePresetSelect(selected);
                       }}
                     >
-                      <SelectItem key="Bạn nên luyện tập các dạng đề thi Cambridge ở cấp độ đang học và tìm tòi, mở rộng kiến thức qua sách, báo và internet.">
-                        Bạn nên luyện tập các dạng đề thi Cambridge ở cấp độ
-                        đang học và tìm tòi, mở rộng kiến thức qua sách, báo và
-                        internet.
+                      <SelectItem key="You should practice Cambridge exam formats at the level you are studying and explore, expand your knowledge through books, newspapers and the internet.">
+                        You should practice Cambridge exam formats at the level
+                        you are studying and explore, expand your knowledge
+                        through books, newspapers and the internet.
                       </SelectItem>
-                      <SelectItem key="Bạn phản ứng không nhanh trong giao tiếp, cần tập nghe nhiều các đoạn hội thoại và luyện tập ở nhà.">
-                        Bạn phản ứng không nhanh trong giao tiếp, cần tập nghe
-                        nhiều các đoạn hội thoại và luyện tập ở nhà.
+                      <SelectItem key="You don't react quickly in communication, need to listen to more conversations and practice at home.">
+                        You do not react quickly in communication, need to listen
+                        to more conversations and practice at home.
                       </SelectItem>
-                      <SelectItem key="Bạn hay mắc lỗi khi làm bài tập, cần ghi chú cẩn thận và thường xuyên xem lại bài để tránh lặp lại các lỗi này.">
-                        Bạn hay mắc lỗi khi làm bài tập, cần ghi chú cẩn thận và
-                        thường xuyên xem lại bài để tránh lặp lại các lỗi này.
+                      <SelectItem key="You often make mistakes when doing homework, need to take careful notes and frequently review the lesson to avoid repeating these mistakes.">
+                        You often make mistakes when doing homework, need to
+                        take careful notes and frequently review the lesson to
+                        avoid repeating these mistakes.
                       </SelectItem>
-                      <SelectItem key="Bạn nên nghe nhiều hơn ở nhà và cố gắng ghi nhớ nhiều cụm từ và ý nghĩa của chúng.">
-                        Bạn nên nghe nhiều hơn ở nhà và cố gắng ghi nhớ nhiều
-                        cụm từ và ý nghĩa của chúng.
+                      <SelectItem key="You should listen more at home and try to memorize many phrases and their meanings.">
+                        You should listen more at home and try to memorize many
+                        phrases and their meanings.
                       </SelectItem>
-                      <SelectItem key="Bạn cần ôn tập thường xuyên và luyện tập vận dụng các cấu trúc ngữ pháp, từ vựng đã học và mở rộng vốn từ.">
-                        Bạn cần ôn tập thường xuyên và luyện tập vận dụng các
-                        cấu trúc ngữ pháp, từ vựng đã học và mở rộng vốn từ.
+                      <SelectItem key="You need to review regularly and practice applying the learned grammar structures, vocabulary and expand your vocabulary.">
+                        You need to review regularly and practice applying the
+                        learned grammar structures, vocabulary and expand your
+                        vocabulary.
                       </SelectItem>
-                      <SelectItem key="Bạn cần thường xuyên ôn tập từ vựng đã học, luyện đọc to và luyện viết lại nhiều lần để ghi nhớ tốt hơn.">
-                        Bạn cần thường xuyên ôn tập từ vựng đã học, luyện đọc to
-                        và luyện viết lại nhiều lần để ghi nhớ tốt hơn.
+                      <SelectItem key="You need to review learned vocabulary regularly, practice reading aloud and rewrite many times to memorize better.">
+                        You need to review learned vocabulary regularly, practice
+                        reading aloud and rewrite many times to memorize better.
                       </SelectItem>
-                      <SelectItem key="Thường xuyên luyện nghe và đọc lại các bài đã học trong sách, khuyến khích nghe và luyện đọc theo giọng bản ngữ thường xuyên để cải thiện phát âm.">
-                        Thường xuyên luyện nghe và đọc lại các bài đã học trong
-                        sách, khuyến khích nghe và luyện đọc theo giọng bản ngữ
-                        thường xuyên để cải thiện phát âm.
+                      <SelectItem key="Regularly practice listening and rereading the lessons learned in the book, encouraging listening and practicing reading in native voices regularly to improve pronunciation.">
+                        Regularly practice listening and rereading the lessons
+                        learned in the book, encouraging listening and
+                        practicing reading in native voices regularly to improve
+                        pronunciation.
                       </SelectItem>
-                      <SelectItem key="Nên rèn luyện thói quen nghe và đọc tiếng Anh hàng ngày, làm quen và tiếp xúc với nhiều nguồn kiến thức để hành trình học tập sắp tới được thuận lợi hơn.">
-                        Nên rèn luyện thói quen nghe và đọc tiếng Anh hàng ngày,
-                        làm quen và tiếp xúc với nhiều nguồn kiến thức để hành
-                        trình học tập sắp tới được thuận lợi hơn.
+                      <SelectItem key="You should cultivate the habit of listening and reading English every day, get used to and be exposed to many sources of knowledge so that your upcoming learning journey will be smoother.">
+                        You should cultivate the habit of listening and reading
+                        English every day, get used to and be exposed to many
+                        sources of knowledge so that your upcoming learning
+                        journey will be smoother.
                       </SelectItem>
                     </Select>
 
                     <Select
-                      label="Đánh giá chung"
+                      label="General assessment"
                       labelPlacement="outside"
                       onSelectionChange={(keys) => {
                         const selected = Array.from(keys)[0]?.toString() || "";
                         handlePresetSelect(selected);
                       }}
                     >
-                      <SelectItem key="Bạn nhạy bén và thái độ học tập tích cực, nên tiếp tục phát huy.">
-                        Bạn nhạy bén và thái độ học tập tích cực, nên tiếp tục
-                        phát huy.
+                      <SelectItem key="You are sharp and have a positive learning attitude, so continue to promote it.">
+                        You are sharp and have a positive learning attitude, so
+                        continue to promote it.
                       </SelectItem>
-                      <SelectItem key="Kỹ năng thực hành ngôn ngữ của bạn có cải thiện.">
-                        Kỹ năng thực hành ngôn ngữ của bạn có cải thiện.
+                      <SelectItem key="Your language practice skills have improved.">
+                        Your language practice skills have improved.
                       </SelectItem>
-                      <SelectItem key="Kỹ năng thực hành ngôn ngữ của bạn chưa có nhiều cải thiện. Bạn cần học nghiêm túc hơn và đầu tư thời gian tự học ở nhà hơn.">
-                        Kỹ năng thực hành ngôn ngữ của bạn chưa có nhiều cải
-                        thiện. Bạn cần học nghiêm túc hơn và đầu tư thời gian tự
-                        học ở nhà hơn.
+                      <SelectItem key="Your language practice skills have not improved much. You need to study more seriously and invest more time in self-study at home.">
+                        Your language practice skills have not improved much. You
+                        need to study more seriously and invest more time in
+                        self-study at home.
                       </SelectItem>
-                      <SelectItem key="Kỹ năng thực hành ngôn ngữ của bạn có cải thiện.Tuy nhiên cần luyện tập kỹ năng nghe - nói nhiều hơn.">
-                        Kỹ năng thực hành ngôn ngữ của bạn có cải thiện.Tuy
-                        nhiên cần luyện tập kỹ năng nghe - nói nhiều hơn.
+                      <SelectItem key="Your language practice skills have improved. However, you need to practice listening and speaking skills more.">
+                        Your language practice skills have improved. However,
+                        you need to practice listening and speaking skills more.
                       </SelectItem>
-                      <SelectItem key="Bạn chăm ngoan, các kỹ năng khá tốt. Cần phát huy nhé!">
-                        Bạn chăm ngoan, các kỹ năng khá tốt. Cần phát huy nhé!
+                      <SelectItem key="You are diligent, and your skills are quite good. Keep up the good work!">
+                        You are diligent, and your skills are quite good. Keep up
+                        the good work!
                       </SelectItem>
-                      <SelectItem key="Bạn có cố gắng nhưng các kỹ năng thực hành ngôn ngữ của bạn chưa có nhiều cải thiện. Bạn cần cố gắng luyện tập các kỹ năng nhiều hơn nữa nhé!">
-                        Bạn có cố gắng nhưng các kỹ năng thực hành ngôn ngữ của
-                        bạn chưa có nhiều cải thiện. Bạn cần cố gắng luyện tập
-                        các kỹ năng nhiều hơn nữa nhé!
+                      <SelectItem key="You have tried but your language practice skills have not improved much. You need to try to practice the skills more!">
+                        You have tried but your language practice skills have not
+                        improved much. You need to try to practice the skills
+                        more!
                       </SelectItem>
-                      <SelectItem key="Bạn chưa có nhiều cố gắng trong học tập. Bạn cần học nghiêm túc hơn và đầu tư thời gian tự học ở nhà hơn. Bạn cần cố gắng nhiều hơn nữa nhé!">
-                        Bạn chưa có nhiều cố gắng trong học tập. Bạn cần học
-                        nghiêm túc hơn và đầu tư thời gian tự học ở nhà hơn. Bạn
-                        cần cố gắng nhiều hơn nữa nhé!
+                      <SelectItem key="You have not put much effort into studying. You need to study more seriously and invest more time in self-study at home. You need to try harder!">
+                        You have not put much effort into studying. You need to
+                        study more seriously and invest more time in self-study
+                        at home. You need to try harder!
                       </SelectItem>
                     </Select>
 
                     <Select
-                      label="Khuyến nghị cụ thể"
+                      label="Specific recommendations"
                       labelPlacement="outside"
                       onSelectionChange={(keys) => {
                         const selected = Array.from(keys)[0]?.toString() || "";
                         handlePresetSelect(selected);
                       }}
                     >
-                      <SelectItem key="Bạn nên tập tính cẩn thận khi làm bài và kiểm tra kỹ lưỡng sau khi hoàn thành.">
-                        Bạn nên tập tính cẩn thận khi làm bài và kiểm tra kỹ
-                        lưỡng sau khi hoàn thành.
+                      <SelectItem key="You should practice being careful when doing exercises and check carefully after completion.">
+                        You should practice being careful when doing exercises
+                        and check carefully after completion.
                       </SelectItem>
-                      <SelectItem key="Bạn nên học từ vựng cẩn thận và thường xuyên xem lại bài, đặc biệt là các câu ví dụ trong bài học về ngữ pháp.">
-                        Bạn nên học từ vựng cẩn thận và thường xuyên xem lại
-                        bài, đặc biệt là các câu ví dụ trong bài học về ngữ
-                        pháp.
+                      <SelectItem key="You should learn vocabulary carefully and review the lesson often, especially the example sentences in the grammar lesson.">
+                        You should learn vocabulary carefully and review the
+                        lesson often, especially the example sentences in the
+                        grammar lesson.
                       </SelectItem>
-                      <SelectItem key="Bạn nên tra từ vựng, đặc biệt học thật nhiều cụm từ, học cách ghi chép và áp dụng những gì đã học vào thực tế.">
-                        Bạn nên tra từ vựng, đặc biệt học thật nhiều cụm từ, học
-                        cách ghi chép và áp dụng những gì đã học vào thực tế.
+                      <SelectItem key="You should look up vocabulary, especially learn a lot of phrases, learn how to take notes and apply what you have learned to practice.">
+                        You should look up vocabulary, especially learn a lot of
+                        phrases, learn how to take notes and apply what you have
+                        learned to practice.
                       </SelectItem>
-                      <SelectItem key="Bạn hoàn toàn có năng lực phát triển ngôn ngữ nếu chịu khó rèn luyện và đặt mục tiêu phấn đấu cao hơn.">
-                        Bạn hoàn toàn có năng lực phát triển ngôn ngữ nếu chịu
-                        khó rèn luyện và đặt mục tiêu phấn đấu cao hơn.
+                      <SelectItem key="You have the capacity to develop language if you are willing to practice hard and set higher goals.">
+                        You have the capacity to develop language if you are
+                        willing to practice hard and set higher goals.
                       </SelectItem>
-                      <SelectItem key="Bạn nên tập trung hơn trong giờ học và nên tích cực phát biểu nhiều hơn.">
-                        Bạn nên tập trung hơn trong giờ học và nên tích cực phát
-                        biểu nhiều hơn.
+                      <SelectItem key="You should focus more during class and actively speak up more.">
+                        You should focus more during class and actively speak up
+                        more.
                       </SelectItem>
-                      <SelectItem key="Bạn nên tập trung hơn trong giờ học và nên hoàn thành bài tập giáo viên giao đầy đủ trước khi vào lớp.">
-                        Bạn nên tập trung hơn trong giờ học và nên hoàn thành
-                        bài tập giáo viên giao đầy đủ trước khi vào lớp.
+                      <SelectItem key="You should focus more during class and complete the exercises assigned by the teacher fully before entering class.">
+                        You should focus more during class and complete the
+                        exercises assigned by the teacher fully before entering
+                        class.
                       </SelectItem>
                     </Select>
                   </div>
@@ -390,7 +398,7 @@ const Criteria = ({
                       maxLength={MAX_COMMENT_LENGTH}
                     />
                     <div className="text-right text-sm text-gray-500">
-                      {commentLength}/{MAX_COMMENT_LENGTH} ký tự
+                      {commentLength}/{MAX_COMMENT_LENGTH} characters
                     </div>
                   </div>
                 </div>

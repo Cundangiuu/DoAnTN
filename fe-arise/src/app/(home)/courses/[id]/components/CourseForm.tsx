@@ -54,7 +54,7 @@ export default function CourseForm({
     let response;
     if (operation === "update") {
       if (!defaultCourse?.code) {
-        toast.error("Không tìm thấy khóa học");
+        toast.error("Course not found");
         return;
       }
       response = await updateCourse(courseRequest, defaultCourse.code);
@@ -62,10 +62,10 @@ export default function CourseForm({
       response = await addCourse(courseRequest);
     }
     if (!response.data) {
-      toast.error(`Không thể ${operation} khóa học`);
+      toast.error(`Could not ${operation} course`);
       return;
     }
-    toast.success(`Khóa học đã được ${operation === "create" ? "tạo" : "cập nhật"}`);
+    toast.success(`Course has been ${operation === "create" ? "created" : "updated"}`);
     router.push(`/courses/${response.data.code}`);
   };
 
@@ -83,31 +83,31 @@ export default function CourseForm({
               isDisabled={isDisabled}
               name="name"
               isRequired
-              label="Tên khóa học"
-              placeholder="Nhập tên khóa học"
+              label="Course Name"
+              placeholder="Enter course name"
               labelPlacement="outside"
               defaultValue={defaultCourse?.name}
             />
             <Input
               isReadOnly={isReadonly}
               isDisabled={isDisabled}
-              label="Số giờ học"
+              label="Number of Hours"
               name="numberHour"
               labelPlacement="outside"
-              placeholder="Số giờ học"
+              placeholder="Number of hours"
               type="number"
               defaultValue={defaultCourse?.numberHour.toString()}
             />
             <Input
               isReadOnly={isReadonly}
               isDisabled={isDisabled}
-              label="Học phí"
+              label="Tuition Fee"
               name="tuitionRate"
               labelPlacement="outside"
-              placeholder="Nhập học phí"
+              placeholder="Enter tuition fee"
               startContent={
                 <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small">đ</span>
+                  <span className="text-default-400 text-small">$</span>
                 </div>
               }
               defaultValue={defaultCourse?.tuitionRate.toString()}
@@ -116,8 +116,8 @@ export default function CourseForm({
             <Select
               isDisabled={isDisabled}
               name="courseLevelConstants"
-              label="Trình độ"
-              placeholder="Chọn trình độ"
+              label="Level"
+              placeholder="Select level"
               className="w-full"
               labelPlacement="outside"
               isRequired
@@ -137,8 +137,8 @@ export default function CourseForm({
           <div>
             <Textarea
               name="description"
-              label="Mô tả"
-              placeholder="Nhập mô tả"
+              label="Description"
+              placeholder="Enter description"
               isReadOnly={isReadonly}
               isDisabled={isDisabled}
               defaultValue={defaultCourse?.description}
@@ -147,8 +147,8 @@ export default function CourseForm({
         </form>
       </FormContextProvider>
       <div className="w-full flex gap-3 flex-col mt-8 bg-slate-50 p-4 rounded-md">
-        <Tabs aria-label="Thông tin" color="primary">
-          <Tab key={"outline"} title={"Đề cương"}>
+        <Tabs aria-label="Information" color="primary">
+          <Tab key={"outline"} title={"Outline"}>
             <OutlineTable
               isNew={operation == "create" ? true : false}
               isReadonly={isReadonly}
@@ -156,7 +156,7 @@ export default function CourseForm({
               courseCode={defaultCourse?.code}
             />
           </Tab>
-          <Tab key={"pre-enrollment"} title={"Đăng ký trước"}>
+          <Tab key={"pre-enrollment"} title={"Pre-Enrollment"}>
             <EnrollmentTable
               isNew={operation == "create" ? true : false}
               courseId={defaultCourse?.id}

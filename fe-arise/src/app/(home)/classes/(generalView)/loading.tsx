@@ -27,25 +27,25 @@ export default function Loading() {
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-[#f0f4f8] rounded-lg shadow-md">
-      {/* Tiêu đề Loading */}
+      {/* Loading Title */}
       <h2 className="text-2xl font-semibold text-[#2255a6] mb-4">
-        Đang tải dữ liệu...
+        Loading data...
       </h2>
 
-      {/* Thanh tiến trình (tùy chọn) */}
+      {/* Progress Bar (optional) */}
       <div className="w-48 h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
         <div
           className="h-full bg-[#2255a6] animate-pulse"
-          style={{ width: "75%" }} // Điều chỉnh độ rộng để hiển thị tiến trình
+          style={{ width: "75%" }} // Adjust width to display progress
         ></div>
       </div>
 
-      {/* Thông báo Loading */}
+      {/* Loading Message */}
       <p className="text-gray-700 italic">
-        Xin vui lòng đợi trong giây lát...
+        Please wait a moment...
       </p>
 
-      {/* Bảng Loading */}
+      {/* Loading Table */}
       <TableWrapper<ClassDTO>
         disabled
         rest={{ ...rest, number }}
@@ -60,14 +60,14 @@ export default function Loading() {
         isExport={() => {}}
         onPrint={[
           {
-            label: "Báo cáo ngày kiểm tra",
+            label: "Test Day Report",
             type: "testDay",
             icon: IoMdPrint,
             action: () => {},
             color: "primary",
           },
           {
-            label: "Báo cáo vắng mặt",
+            label: "Absence Report",
             type: "absence",
             icon: IoMdPrint,
             action: () => {},

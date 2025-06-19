@@ -32,13 +32,13 @@ const CourseTable: React.FC = () => {
   } = useMeaningfulContext(CourseContext);
   const data = courses;
 
- const columns = [
-    { name: "Mã khóa học", key: "code", align: "start" },
-    { name: "Tên khóa học", key: "name", align: "start" },
-    { name: "Học phí", key: "tuitionRate", align: "start" },
-    { name: "Số giờ", key: "numberOfHour", align: "start" },
-    { name: "Cấp độ", key: "level", align: "start" },
-    { name: "Hành động", key: "Action" },
+  const columns = [
+    { name: "Course Code", key: "code", align: "start" },
+    { name: "Course Name", key: "name", align: "start" },
+    { name: "Tuition Fee", key: "tuitionRate", align: "start" },
+    { name: "Hours", key: "numberOfHour", align: "start" },
+    { name: "Level", key: "level", align: "start" },
+    { name: "Actions", key: "Action" },
   ];
 
   const renderCell = (key: string, data: CourseDTO) => {

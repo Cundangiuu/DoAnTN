@@ -55,13 +55,12 @@ export default function OutlineTable({
   const [lessons, setLessons] = useState<Array<LessonRequest>>([]);
   const [loading, setLoading] = useState(false);
 
-    const columns = [
-    { name: "STT", key: "index", align: "start" },            // STT = Số thứ tự
-    { name: "Mô tả", key: "description", align: "left" },     // Mô tả nội dung bài học
-    { name: "Loại bài học", key: "lessonType" },              // Kiểu bài học (Lý thuyết / Thực hành / Trắc nghiệm, v.v.)
-    { name: "Thao tác", key: "action" },                      // Nút hành động (sửa, xóa, v.v.)
+  const columns = [
+    { name: "No.", key: "index", align: "start" },           // STT = Serial number
+    { name: "Description", key: "description", align: "left" },    // Description of the lesson content
+    { name: "Lesson Type", key: "lessonType" },             // Type of lesson (Theory / Practice / Quiz, etc.)
+    { name: "Actions", key: "action" },                     // Action buttons (edit, delete, etc.)
   ];
-
 
   const deleteAction = async (id: number) => {
     setLoading(true);
@@ -109,7 +108,7 @@ export default function OutlineTable({
               <DeleteActionButton
                 action={deleteAction}
                 objectName="lesson"
-                afterDelete={() => {}}
+                afterDelete={() => { }}
                 id={data.id}
                 isIconOnly={true}
               />
@@ -222,8 +221,8 @@ export default function OutlineTable({
     }
 
     const formattedData = data.map((lesson, index) => ({
-      No: index + 1,
-      Description: lesson.description || "",
+      "No.": index + 1,
+      "Description": lesson.description || "",
       "Lesson Type": lesson.lessonType || "Unknown",
     }));
 
