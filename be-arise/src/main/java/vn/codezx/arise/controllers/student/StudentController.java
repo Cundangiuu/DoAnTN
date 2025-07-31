@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -119,5 +120,12 @@ public class StudentController {
   public ResponseEntity<List<StudentGradeDTO>> getGradeOfStudent(
       @PathVariable("request-id") String requestId, @PathVariable("student-id") Integer studentId) {
     return ResponseEntity.ok(studentService.getGradeOfStudent(studentId));
+  }
+
+  @PostMapping("/{request-id}/import")
+  public ResponseEntity<List<StudentDTO>> importStudentsFromExcel(
+      @PathVariable("request-id") String requestId,
+      @RequestBody List<StudentRequest> students) {
+    return ResponseEntity.ok(studentService.importStudentsFromExcel(requestId, students));
   }
 }

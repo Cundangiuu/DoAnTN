@@ -1,6 +1,7 @@
 package vn.codezx.arise.services.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -335,5 +336,68 @@ public class StudentServiceImpl implements StudentService {
     } else {
       return StringUtil.generateCode("STU", 1);
     }
+  }
+
+  @Override
+  @Transactional
+  public List<StudentDTO> importStudentsFromExcel(String requestId, List<StudentRequest> students) {
+    List<StudentDTO> importedStudents = new ArrayList<>();
+    
+    for (StudentRequest studentRequest : students) {
+      try {
+        // Validate each student request
+        validateStudentRequest(studentRequest, requestId);
+        
+        // Check for duplicate phone number
+        Optional<Student> existingStudent = studentRepository.searchByQuery(studentRequest.getPhoneNumber())
+            .stream()
+            .filter(s -> s.getPhoneNumber().equals(studentRequest.getPhoneNumber()))
+            .findFirst();
+        
+        if (existingStudent.isPresent()) {
+          log.warn(LogUtil.buildFormatLog(requestId, 
+              "Duplicate phone number found: " + studentRequest.getPhoneNumber()));
+          continue; // Skip this student and continue with others
+        }
+        
+        // Create student entity
+        Student student = Student.builder()
+            .address(studentRequest.getAddress())
+            .dateOfBirth(studentRequest.getDateOfBirth())
+            .name(studentRequest.getName())
+            .nickname(studentRequest.getNickname())
+            .phoneNumber(studentRequest.getPhoneNumber())
+            .code(generateStudentCode())
+            .emailAddress(studentRequest.getEmailAddress())
+            .note(studentRequest.getNote())
+            .discount(null)
+            .build();
+        
+        // Set discount if provided
+        if (studentRequest.getDiscountId() != null) {
+          Optional<Discount> discount = discountRepository.findById(studentRequest.getDiscountId());
+          if (discount.isPresent()) {
+            student.setDiscount(discount.get());
+          }
+        }
+        
+        // Save student
+        student = studentRepository.saveAndFlush(student);
+        importedStudents.add(studentToDTOMapper.toDto(student));
+        
+        log.info(LogUtil.buildFormatLog(requestId,
+            "Successfully imported student: " + student.getCode()));
+            
+      } catch (Exception e) {
+        log.error(LogUtil.buildFormatLog(requestId,
+            "Failed to import student: " + studentRequest.getName() + " - " + e.getMessage()));
+        // Continue with other students even if one fails
+      }
+    }
+    
+    log.info(LogUtil.buildFormatLog(requestId,
+        "Import completed. Successfully imported " + importedStudents.size() + " out of " + students.size() + " students"));
+    
+    return importedStudents;
   }
 }

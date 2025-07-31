@@ -4,6 +4,7 @@ import { ENV } from "@/constants";
 import { Pageable } from "@/dtos/base/Pageable";
 import { StudentDTO } from "@/dtos/student/StudentDTO";
 import { StudentGradeDTO } from "@/dtos/student/StudentGradeDTO";
+import { StudentRequestDTO } from "@/dtos/student/StudentRequestDTO";
 import { withAuth } from "@/middleware";
 import { ApiResponse } from "@/types";
 
@@ -440,5 +441,44 @@ export const getGradeOfStudentGroupedByClass = async (
       message: response.statusText,
       data: data,
     };
+  });
+};
+
+export const importStudentsFromExcel = async (
+  students: StudentRequestDTO[]
+): Promise<ApiResponse<StudentDTO[]>> => {
+  return withAuth(async (token) => {
+    const requestId = crypto.randomUUID();
+    try {
+      const response = await fetch(
+        `${ENV.API_URL}/api/students/${requestId}/import`,
+        {
+          method: "POST",
+          headers: { 
+            "x-access-token": token,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(students),
+        }
+      );
+      
+      if (response.status !== 200) {
+        return {
+          status: response.status,
+          message: response.statusText,
+        };
+      }
+
+      const data: StudentDTO[] = (await response.json()) as StudentDTO[];
+
+      return {
+        status: response.status,
+        message: response.statusText,
+        data: data,
+      };
+    } catch (e) {
+      console.log(e);
+      return { message: "Failed to import students", status: 500 };
+    }
   });
 };
