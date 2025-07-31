@@ -8,18 +8,20 @@ import { useMeaningfulContext } from "@/hooks";
 import { exportStudents } from "@/services/StudentService";
 import { DateToStringWithoutTime } from "@/utils/DateUtils";
 import { updateSearchParams } from "@/utils/UrlUtil";
-import { Selection, User } from "@nextui-org/react";
+import { Button, Selection, User } from "@nextui-org/react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 import * as XLSX from "xlsx";
 import { StudentContext } from "../context/StudentContext";
+import ExcelImport from "./ExcelImport";
 
 const StudentTable: React.FC = () => {
   const router = useRouter();
   const path = usePathname();
   const params = new URLSearchParams(Array.from(useSearchParams()));
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 
   const {
     isLoading,
@@ -159,19 +161,43 @@ const StudentTable: React.FC = () => {
     XLSX.writeFile(workbook, "Student.xlsx");
   };
 
+  const handleImportSuccess = () => {
+    // Trigger a page refresh to reload data
+    window.location.reload();
+  };
+
   return (
-    <TableWrapper<StudentDTO>
-      rest={rest}
-      columns={columns}
-      renderCell={renderCell}
-      data={data?.content}
-      isLoading={isLoading}
-      filterValue={filterValue}
-      setFilterValue={setFilterValue}
-      onNew={() => router.push("/students/new")}
-      filterOptions={filterOptions}
-      isExport={exportToExcel}
-    />
+    <>
+      <div className="flex justify-end mb-4">
+        <Button
+          color="success"
+          variant="flat"
+          onPress={() => setIsImportModalOpen(true)}
+          className="mr-2"
+        >
+          Import Excel
+        </Button>
+      </div>
+      
+      <TableWrapper<StudentDTO>
+        rest={rest}
+        columns={columns}
+        renderCell={renderCell}
+        data={data?.content}
+        isLoading={isLoading}
+        filterValue={filterValue}
+        setFilterValue={setFilterValue}
+        onNew={() => router.push("/students/new")}
+        filterOptions={filterOptions}
+        isExport={exportToExcel}
+      />
+      
+      <ExcelImport
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onImportSuccess={handleImportSuccess}
+      />
+    </>
   );
 };
 

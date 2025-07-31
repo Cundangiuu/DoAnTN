@@ -39,4 +39,6 @@ public interface StudentService {
   List<StudentDTO> exportStudents(String requestId, String query, String hasAvatar);
 
   StudentDTO getStudentById(String requestId, Integer id);
+
+  List<StudentDTO> importStudentsFromExcel(String requestId, List<StudentRequest> students);
 }
