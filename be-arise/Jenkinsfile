@@ -1,0 +1,67 @@
+pipeline {
+    agent { label 'Host' }
+    environment {
+        CLIENT_ID = '1009167288275-lfq7l3tihii2031a9o180kc5hufmt1b6.apps.googleusercontent.com'
+        PROJECT_ID = 'ariseedu'
+        AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
+        TOKEN_URI = 'https://oauth2.googleapis.com/token'
+        AUTH_PROVIDER_X509_CERT_URL = 'https://www.googleapis.com/oauth2/v1/certs'
+        CLIENT_SECRET = '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'
+        REDIRECT_URI_1 = 'http://localhost:3000/api/auth/callback/google'
+        JS_ORIGIN_1 = 'http://localhost:8080'
+        PRIVATE_KEY_ID = '499c6687a4f0743dd0ef88b5c2ff16d4aa67a884'
+        PRIVATE_KEY = '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCd2rRttkysm5QL\n6QeJ/sMnPfTyWJ86lpiufM/JgnxM+h7TVm0vp+Kd6cmFGazzWGfYeTLJyXqG7QYT\nMFxlWIEREGxAK652bxD7CYRNFJeKaYTUX41O4CgTSi588ZfCGXCj7+NcFYV2MfQ1\nXeG4h9q7LKR8IRgEBVeHu8G0Q8qKQQEmsoU5ASB2bdIAPFdyyFEDCVTVDQ3e83I/\ntBj4wGCcDA6bo+rszMG/pcvUMdSTQCkC+Eli6IRiYQxL/FcB/Sg4+teTkrGPYph4\nE7NIVORh0ZawlE3XKQZ9OkYb0fjAWOpYzPZgx30VSCxU+SStBTcLRefg/0qK1HGs\n3zULBpzHAgMBAAECggEAFJZCjsZw5IKxLFvQDGVp8pMS1Y0iTcP4lf/CzQnpXSld\nCNH45ndeR5sHGbFEtu3yM9ob+hN+mTHjZ3BDX0JLfua7P3k9mnDsxYNdulHJBm0G\n56MDQmSwmqduPa73zFbWCRi5owz5fXXmtBO84vybgGrCPvVv9OJKIp0llkrQaPb8\nVcPsk5GuyLw3o394ZC/dDTzcUrBh35dBw77zUv4gMtSMuYnxI+b/d0z/fWJ48mcy\ny+74eoYwtkpAXIW+d0A6cOXGExRNDk5VLfrcZAY5bWvpskFubnGx6Xf5ct6RWSkr\nFWQoIPDqGkRNiELMl0A1LzorxOmUtkElXq5zz8y3OQKBgQDeHMkzAYzmbyBcqlIz\nutMGdl0D5jXLcPnnIOjDYQrO9I+ml0T75OrIm67nJbhXrRNLHRZDQWGc+0CUWa9R\noLXAA0sthl8M3QDws4XEDBxTjc3lVV7c1Th0MZPPCd854sQVJ/31bZyzqLjMpTlr\nv25tw8pWwH7754OY31ZQ/FDAiQKBgQC18CPyJH85JwQgQc8WMh9bGYHnMBqZNGjA\no3FaZYMa41n5uSSNkD9cWw5i8Lz/na70dRuSw11TAQYAfKdGaisv4yIxxqUUlQwf\n2o67au1CXvlUwFiRoif9rnftk+MYKz63DX+m2RaO7GfYCNWlcrquFIyxugMIEoE8\nFkwPRlv+zwKBgASMVlpjB72YPPNo0XIZu0SAm/r+dc+KqrNe6yVFEXGXdHGW22TF\nFUGyXmyBSzsQYjrBh7ks15DdXD8tbvee8NnTt3BhNgUPaXuEUZLoJJRZbQPrMZwY\nCaXndf1hWF7ZE+bTANJLwk+zfsVCBOD99Ibu4W/RVUhXP0ycFipmYEjxAoGAC+Pc\nxYdjFR4ao+0JFp9B81cwaSZ4poiJTAWic9Dsh4ZSLALQg7vomCWPRCINh/sLIwjA\nO5Au+iy38rIy0GRB3EhQxMYBpd2zxCUpbNApH0xLqSFE6Ieba3XKeqlOjxbMa3Qj\nYokPc1m506GILN7ZmmTXaQoKBq4G6iFe6SSlAHsCgYEAt6E44r43x76x2dXgz9+3\n78xrUZypwDFvASDwpqPaKdQ1RExg41QQ2L5aG2uDxaXSkmk/Wdd/UV0LEPsOMPt1\nv5uTwp5iLqtPLY5JLyVVS636UlelqFaELEByscP/+selwTaamkGAmPWhONBz8QJA\nELwpebu6ByckbBHVuqP259o=\n-----END PRIVATE KEY-----\n'
+        CLIENT_EMAIL = 'ariseadmin@ariseedu.iam.gserviceaccount.com'
+        SERVICE_ACCOUNT_CLIENT_ID = '117469246188400486929'
+        CLIENT_X509_CERT_URL = 'https://www.googleapis.com/robot/v1/metadata/x509/ariseadmin%40ariseedu.iam.gserviceaccount.com'
+        UNIVERSE_DOMAIN = 'googleapis.com'
+        ENVIRONMENT='dev'
+        TAG='latest'
+    }
+    stages {
+        stage('Git Checkout') {
+            steps {
+                script {
+                    dir("code") {
+                        git branch: 'dev',
+                            credentialsId: 'jenkins-git',
+                            url: 'git@github.com:codezx-tve/be-tve-ims.git'
+                    }
+                    
+                    dir("deploy-scripts") {
+                        git branch: 'triviet/deploment-scripts',
+                            credentialsId: 'jenkins-git',
+                            url: 'git@github.com:codezxvn/terraform.git'
+                    }
+                }
+            }
+        }
+        stage("Build") {
+            steps {
+                sh '''
+                    cd code && \
+                    sudo chmod +x ./prepare.sh && \
+                    ./prepare.sh && \
+                    docker build --no-cache -t tve-be-dev .
+                '''
+            }
+        }
+        stage("Publish image") {
+            steps {
+                sh '''
+                    gcloud artifacts docker images delete asia-southeast1-docker.pkg.dev/boxwood-airship-449815-u1/my-image-registry/tve-be-${ENVIRONMENT}:${TAG} || true && \
+                    docker tag tve-be-${ENVIRONMENT}:${TAG} asia-southeast1-docker.pkg.dev/boxwood-airship-449815-u1/my-image-registry/tve-be-${ENVIRONMENT}:${TAG} && \
+                    docker push asia-southeast1-docker.pkg.dev/boxwood-airship-449815-u1/my-image-registry/tve-be-${ENVIRONMENT}:${TAG}
+                '''
+            }
+        }
+        stage("Deploy") {
+            steps {
+                sh '''
+                    kubectl delete -f "deploy-scripts/deployments/kubernetes/tve/${ENVIRONMENT}/app-be/deployment.yaml" && \
+                    kubectl apply -f "deploy-scripts/deployments/kubernetes/tve/${ENVIRONMENT}/app-be/deployment.yaml"
+                '''
+            }
+        }
+    }
+}

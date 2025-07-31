@@ -105,7 +105,7 @@ export default function InvoiceForm({
             isDisabled={true}
             defaultValue={defaultInvoiceDTO?.className}
             name="className"
-            label="Enrolled Class (Lớp đã đăng ký)"
+            label="Enrolled Class (Enrolled Class)"
             labelPlacement="outside"
             variant="bordered"
             classNames={{ base: "w-full" }}
@@ -120,7 +120,7 @@ export default function InvoiceForm({
               </div>
             }
             name="tuitionOwed"
-            label="Tuition Owed (Học phí còn nợ)"
+            label="Tuition Owed (Tuition Owed)"
             labelPlacement="outside"
             variant="bordered"
             classNames={{ base: "w-full" }}
@@ -142,7 +142,7 @@ export default function InvoiceForm({
                 : ""
             }
             name="amount"
-            label="Amount Paid (Số tiền đã thanh toán)"
+            label="Amount Paid (Amount Paid)"
             labelPlacement="outside"
             variant="bordered"
             isRequired
@@ -167,7 +167,7 @@ export default function InvoiceForm({
               </div>
             }
             isInvalid={!isReadonly && isInvalid}
-            label="Invoice Discount (Giảm giá hóa đơn)"
+            label="Invoice Discount (Invoice Discount)"
             type="number"
             variant="bordered"
             labelPlacement="outside"
@@ -178,7 +178,7 @@ export default function InvoiceForm({
           <Select
             isDisabled={isDisabled}
             name="paymentType"
-            label="Payment Type  (Loại thanh toán)"
+            label="Payment Type  (Payment Type)"
             placeholder="Select Payment Type"
             className="w-full"
             labelPlacement="outside"
@@ -201,7 +201,7 @@ export default function InvoiceForm({
             isDisabled={isDisabled}
             defaultValue={defaultInvoiceDTO?.description}
             name="description"
-            label="Description (Mô tả)"
+            label="Description (Description)"
             placeholder="Enter a description"
             labelPlacement="outside"
             variant="bordered"

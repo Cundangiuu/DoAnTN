@@ -16,12 +16,12 @@ const StaffTable: React.FC = () => {
   const data = staffs;
 
   const columns = [
-  { name: "Nhân viên", key: "staff", align: "start" },
-  { name: "Chuyên môn", key: "courses", align: "start" },
-  { name: "Lịch giảng dạy", key: "schedules", align: "start" },
-  { name: "Vai trò", key: "roles", align: "start" },
-  { name: "Giờ/ Lương hàng tuần", key: "weeklyHoursRates", align: "start" },
-  { name: "Hành động", key: "Action" },
+  { name: "Staff", key: "staff", align: "start" },
+  { name: "Courses", key: "courses", align: "start" },
+  { name: "Schedules", key: "schedules", align: "start" },
+  { name: "Roles", key: "roles", align: "start" },
+  { name: "WeeklyHoursRates", key: "weeklyHoursRates", align: "start" },
+  { name: "Action", key: "Action" },
 ];
 
 

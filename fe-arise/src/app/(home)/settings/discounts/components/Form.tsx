@@ -39,17 +39,17 @@ const Form: React.FC<Props> = ({ discount }) => {
         ? DiscountService.updateDiscount(discountData, discount.id)
         : DiscountService.createDiscount(discountData));
       if (!response.data) {
-        toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} giảm giá`);
+        toast.error(`Cannot ${isNew ? "create" : "update"} discount`);
       } else {
         toast.success(
-          `${isNew ? "Tạo" : "Cập nhật"} giảm giá thành công!`
+          `Successfully ${isNew ? "created" : "updated"} discount!`
         );
 
         router.push(`/settings/discounts/${response.data.id}`);
       }
     } catch (error) {
-      console.error("Lỗi khi gửi biểu mẫu: ", error);
-      toast.error(`Không thể ${isNew ? "tạo" : "cập nhật"} giảm giá`);
+      console.error("Error submitting form: ", error);
+      toast.error(`Unable to ${isNew ? "create" : "update"} discount`);
     } finally {
       setFormSubmitting(false);
     }
@@ -82,8 +82,8 @@ const Form: React.FC<Props> = ({ discount }) => {
           control={control}
           required
           isReadOnly={isReadOnly}
-          label="Loại"
-          placeholder="Nhập loại"
+          label="Type"
+          placeholder="Enter type"
         />
 
         {/* Số tiền */}
@@ -93,16 +93,16 @@ const Form: React.FC<Props> = ({ discount }) => {
           type="number"
           required
           isReadOnly={isReadOnly}
-          label="Số tiền"
-          placeholder="Nhập số tiền"
+          label="Amount"
+          placeholder="Enter amount"
         />
 
         {/* Mô tả */}
         <TextArea
           control={control}
           name="description"
-          label="Mô tả"
-          placeholder="Nhập mô tả"
+          label="Description"
+          placeholder="Enter description"
           isReadOnly={isReadOnly}
         />
       </div>

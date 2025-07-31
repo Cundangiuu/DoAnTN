@@ -13,9 +13,9 @@ const ScheduleTable: React.FC = () => {
   const data = schedules;
 
   const columns = [
-  { name: "Mã", key: "code", align: "start" },
-  { name: "Mô tả", key: "description" },
-  { name: "Hành động", key: "Action" },
+  { name: "Code", key: "code", align: "start" },
+  { name: "Description", key: "description" },
+  { name: "Action", key: "Action" },
 ];
 
   const renderCell = (key: string, data: ScheduleDTO) => {

@@ -15,9 +15,9 @@ const DiscountTable: React.FC = () => {
   const { discounts, isLoading } = useMeaningfulContext(DiscountContext);
   const data = discounts;
   const columns = [
-  { name: "Loại", key: "type", align: "start" },
-  { name: "Mô tả", key: "description" },
-  { name: "Hành động", key: "Action" },
+  { name: "Type", key: "type", align: "start" },
+  { name: "Description", key: "description" },
+  { name: "Action", key: "Action" },
 ];
 
 

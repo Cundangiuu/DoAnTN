@@ -93,9 +93,9 @@ const Form: React.FC<Props> = ({ schedule }) => {
             control={control}
             defaultSelectedKey={schedule && [schedule.dayOfWeek]}
             name="dayOfWeek"
-            label="Ngày trong tuần"
+            label="DayOfWeek"
             required
-            placeholder="Chọn ngày trong tuần"
+            placeholder="Choose a day of week"
             options={dayOfWeekOptions}
             isDisable={schedule && !isEdit && !isNew}
           />
@@ -108,13 +108,13 @@ const Form: React.FC<Props> = ({ schedule }) => {
               validate: {
                 notGreater: () => {
                   if (startTime >= endTime)
-                    return "Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc";
+                    return "Time start must be less than time end";
                 },
               },
             }}
             isDisable={schedule && !isEdit && !isNew}
             name="startTime"
-            label="Thời gian bắt đầu"
+            label="StartTime"
             required
           />
         </div>
@@ -126,13 +126,13 @@ const Form: React.FC<Props> = ({ schedule }) => {
               validate: {
                 notSmaller: () => {
                   if (startTime >= endTime)
-                    return "Thời gian kết thúc phải lớn hơn thời gian bắt đầu";
+                    return "Time end must be greater than time start";
                 },
               },
             }}
             isDisable={schedule && !isEdit && !isNew}
             name="endTime"
-            label="Thời gian kết thúc"
+            label="EndTime"
             required
           />
         </div>
@@ -140,8 +140,8 @@ const Form: React.FC<Props> = ({ schedule }) => {
           <TextArea
             control={control}
             name="description"
-            label="Mô tả"
-            placeholder="Nhập mô tả"
+            label="Description"
+            placeholder="Enter description"
             isReadOnly={schedule && !isEdit && !isNew}
           />
         </div>
