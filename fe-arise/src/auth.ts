@@ -1,3 +1,5 @@
+// src/auth.ts
+
 import NextAuth from "next-auth";
 import { JWT } from "next-auth/jwt";
 import google from "next-auth/providers/google";
@@ -38,15 +40,14 @@ async function refreshAccessToken(token: JWT) {
     token.accessToken = newTokens.id_token;
     token.exp = Math.floor(Date.now() / 1000 + newTokens.expires_in);
     return token;
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) { // ĐÃ SỬA: Thêm kiểu 'unknown' để an toàn hơn
+    console.log("[refreshAccessToken] Error:", error);
     token.error = "RefreshTokenError";
     return token;
   }
 }
 
-const getRoleByUser = async (email: string | null | undefined) => {
-  // Thêm một check để đảm bảo email tồn tại
+const getRoleByUser = async (email: string | null | undefined): Promise<RoleDTO[] | undefined> => {
   if (!email) {
     console.log("[DEBUG] getRoleByUser: Bỏ qua vì email không tồn tại.");
     return;
@@ -55,8 +56,6 @@ const getRoleByUser = async (email: string | null | undefined) => {
   const requestId = `${crypto.randomUUID()}`;
   const url = `${ENV.API_URL}/api/roles/${requestId}/user?email=${email}`;
 
-  // Log 1: Kiểm tra xem biến môi trường và URL có được build đúng không.
-  // Đây là bước quan trọng nhất trên Vercel.
   console.log(`[DEBUG] getRoleByUser: Đang thực hiện request tới URL: ${url}`);
   console.log(`[DEBUG] getRoleByUser: Giá trị của ENV.API_URL là: "${ENV.API_URL}"`);
 
@@ -67,60 +66,35 @@ const getRoleByUser = async (email: string | null | undefined) => {
       headers: { "x-access-token": TOKEN_DEFAULT },
     });
 
-    // Log 2: Nếu request không thành công (status không phải 2xx)
-    // response.ok sẽ là false cho các status code như 400, 401, 403, 404, 500...
     if (!response.ok) {
-      // Đọc nội dung response dưới dạng text để tránh lỗi parse JSON nếu response không phải là JSON
-      const errorBody = await response.text(); 
-      
+      const errorBody = await response.text();
       console.error(`[ERROR] Failed to get role by user: ${email}`);
       console.error(`[ERROR] Status Code: ${response.status}`);
       console.error(`[ERROR] Status Text: ${response.statusText}`);
-      console.error(`[ERROR] Response Body: ${errorBody}`); // Log này cực kỳ quan trọng
-      return; // Trả về undefined như logic cũ
+      console.error(`[ERROR] Response Body: ${errorBody}`);
+      return; // Trả về undefined
     }
 
-    // Nếu thành công
     console.log(`[SUCCESS] getRoleByUser: Lấy role thành công cho user: ${email}`);
     return (await response.json()) as RoleDTO[];
 
-  } catch (e: any) { // Bắt lỗi network hoặc các lỗi không mong muốn khác
+  } catch (e: unknown) { // Giữ nguyên 'unknown'
     console.error(`[FATAL] Network error or unexpected exception in getRoleByUser for email: ${email}`);
-    console.error(`[FATAL] Error Name: ${e.name}`);
-    console.error(`[FATAL] Error Message: ${e.message}`);
-    // Log thêm 'cause' nếu có, rất hữu ích cho các lỗi network trên Node.js 18+
-    if (e.cause) {
-        console.error(`[FATAL] Error Cause:`, e.cause);
+    if (e instanceof Error) {
+        console.error(`[FATAL] Error Name: ${e.name}`);
+        console.error(`[FATAL] Error Message: ${e.message}`);
+        // ĐÃ SỬA: Dùng toán tử 'in' để kiểm tra an toàn thay vì 'as any'
+        if ('cause' in e && e.cause) {
+            console.error(`[FATAL] Error Cause:`, e.cause);
+        }
+        console.error(`[FATAL] Stack Trace: ${e.stack}`);
+    } else {
+        console.error(`[FATAL] Caught a non-error value:`, e);
     }
-    console.error(`[FATAL] Stack Trace: ${e.stack}`);
-    return { message: "Failed to fetch", status: 500 };
+    // Không trả về object lỗi nữa để session callback xử lý dễ hơn
+    return;
   }
 };
-
-
-// const getRoleByUser = async (email: string | null | undefined) => {
-//   const requestId = `${crypto.randomUUID()}`;
-//   try {
-//     const response = await fetch(
-//       `${ENV.API_URL}/api/roles/${requestId}/user?email=${email}`,
-//       {
-//         method: "GET",
-//         cache: "no-store",
-//         headers: { "x-access-token": TOKEN_DEFAULT },
-//       }
-//     );
-
-//     if (response.status !== 200) {
-//       console.log("Failed to get role by user", email);
-//       return;
-//     }
-
-//     return (await response.json()) as RoleDTO[];
-//   } catch (e) {
-//     console.log(e);
-//     return { message: "Failed to fetch", status: 500 };
-//   }
-// };
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -216,8 +190,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       session.error = token.error;
       session.token = token;
+
       const roles = await getRoleByUser(token.email);
-      session.roles = roles as RoleDTO[];
+      // ĐÃ SỬA: Kiểm tra roles là mảng trước khi gán để tránh lỗi runtime
+      if (Array.isArray(roles)) {
+        session.roles = roles;
+      } else {
+        session.roles = []; // Hoặc xử lý lỗi theo cách khác nếu cần
+      }
+
       session.userId = token.userId as string;
 
       return session;
